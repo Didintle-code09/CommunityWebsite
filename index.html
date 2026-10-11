@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Mmotong / Perskebuilt · A community archive</title>
+  <title>Perskebuilt · A community archive</title>
   <meta name="description" content="An interactive archive of the history, people, places and memories of Mmotong wa Perekisi (Perskebult / Perskebuilt), north-west of Polokwane in Limpopo, South Africa.">
   <meta name="author" content="Didintle Moratamotho">
   <meta name="theme-color" content="#FFFFFF">
@@ -25,27 +25,11 @@
   MMOTONG / PERSKEBUILT COMMUNITY ARCHIVE
   A project by Didintle Moratamotho
 
-  IMAGE SLOTS — drop photographs into /images using these exact names.
-  Until a file exists, its slot shows a "Photograph wanted" card that
-  describes the picture the archive is looking for.
-
-    images/hero.jpg            images/place-01.jpg ... place-04.jpg
-    images/land-01.jpg         images/then.jpg
-    images/land-02.jpg         images/now.jpg
-    images/history-01.jpg      images/memories-01.jpg
-    images/history-02.jpg      images/today-01.jpg ... today-09.jpg
-    images/timeline-1960s.jpg  images/future.jpg
-    images/timeline-1970s.jpg
-    images/timeline-1980s.jpg  images/people-01.jpg
-    images/timeline-1990s.jpg  images/people-02.jpg
-    images/timeline-2000s.jpg  images/people-03.jpg
-    images/timeline-2010s.jpg
-    images/timeline-today.jpg
-
-  When you add a photograph:
-    1. Update its alt text to describe what is actually in the photo.
-    2. Fill in its "Image source" credit: Photograph: [Creator] · [Year] · [Source]
-    3. Only use photographs you have permission to publish.
+  NO MEDIA — this site uses no photographs, video or audio files. Every
+  visual is drawn in code: the hills and peach sun in the hero, the maps,
+  the line drawings of each place, the decade "prints" in the timeline and
+  the dot charts are all inline SVG or CSS. Nothing on the page is a
+  stand-in for a real photograph of a real person or place.
   ==========================================================================
 -->
 
@@ -65,7 +49,7 @@
   <div class="progress" aria-hidden="true"><span class="progress__bar"></span></div>
 
   <div class="indicator" aria-hidden="true">
-    <p class="indicator__num"><span class="indicator__roll indicator__roll--num"><span class="indicator__text">01</span></span><span class="indicator__total">/ 08</span></p>
+    <p class="indicator__num"><span class="indicator__roll indicator__roll--num"><span class="indicator__text">01</span></span><span class="indicator__total">/ 07</span></p>
     <p class="indicator__title"><span class="indicator__roll indicator__roll--title"><span class="indicator__text">The Land</span></span></p>
   </div>
 
@@ -82,7 +66,6 @@
       <a href="#timeline" data-nav="before">Timeline</a>
       <a href="#people" data-nav="people">People</a>
       <a href="#places" data-nav="places">Places</a>
-      <a href="#then-now" data-nav="then-now">Then &amp; Now</a>
       <a href="#memories" data-nav="memories">Memories</a>
       <a href="#today" data-nav="today">Today</a>
     </nav>
@@ -99,9 +82,8 @@
         <li><a class="menu__link" href="#timeline"><span class="menu__num">02</span><span class="menu__word">Timeline</span></a></li>
         <li><a class="menu__link" href="#people"><span class="menu__num">03</span><span class="menu__word">People</span></a></li>
         <li><a class="menu__link" href="#places"><span class="menu__num">04</span><span class="menu__word">Places</span></a></li>
-        <li><a class="menu__link" href="#then-now"><span class="menu__num">05</span><span class="menu__word">Then &amp; Now</span></a></li>
-        <li><a class="menu__link" href="#memories"><span class="menu__num">06</span><span class="menu__word">Memories</span></a></li>
-        <li><a class="menu__link" href="#today"><span class="menu__num">07</span><span class="menu__word">Today</span></a></li>
+        <li><a class="menu__link" href="#memories"><span class="menu__num">05</span><span class="menu__word">Memories</span></a></li>
+        <li><a class="menu__link" href="#today"><span class="menu__num">06</span><span class="menu__word">Today</span></a></li>
       </ol>
     </nav>
     <p class="menu__foot">A project by Didintle Moratamotho</p>
@@ -111,21 +93,39 @@
 
     <!-- =====================================================================
          HERO — "This is where our story begins"
-         Pinned. Scroll opens an arch-shaped mask onto the photograph while
-         the two title lines drift apart independently.
+         Pinned. Scroll opens an arch onto a drawn landscape: a ridge (bult)
+         under a rising peach (perske) sun. The two title lines drift apart.
          ===================================================================== -->
     <section class="hero" id="top" data-scene="hero" aria-labelledby="hero-title">
       <div class="hero__pin">
-        <figure class="hero__media plate plate--hero">
+        <div class="hero__media" aria-hidden="true">
           <div class="hero__intro">
-            <img class="plate__img hero__img" src="images/hero.jpg" alt="Wide view of Mmotong / Perskebuilt" fetchpriority="high" decoding="async" width="2400" height="1600">
-            <div class="plate__wanted">
-              <p class="plate__kicker">Photograph wanted</p>
-              <p class="plate__desc">A wide view of Mmotong, ideally from a high point. The strongest photograph of the community.</p>
-              <p class="plate__file">images/hero.jpg</p>
-            </div>
+            <svg class="scape" viewBox="0 0 1600 1000" preserveAspectRatio="xMidYMax slice">
+              <defs>
+                <linearGradient id="scape-sky" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#FFFFFF"/>
+                  <stop offset=".62" stop-color="#FCE9DC"/>
+                  <stop offset="1" stop-color="#F8D2BA"/>
+                </linearGradient>
+                <radialGradient id="scape-sun" cx=".5" cy=".42" r=".6">
+                  <stop offset="0" stop-color="#FBC3A0"/>
+                  <stop offset="1" stop-color="#EE9468"/>
+                </radialGradient>
+              </defs>
+              <rect class="scape__sky" width="1600" height="1000" fill="url(#scape-sky)"/>
+              <g class="scape__sun"><circle cx="800" cy="560" r="230" class="scape__halo"/><circle cx="800" cy="560" r="150" fill="url(#scape-sun)"/></g>
+              <path class="scape__ridge scape__ridge--1" d="M0 640 C200 560 380 600 560 540 S900 470 1100 540 S1420 600 1600 520 V1000 H0Z"/>
+              <path class="scape__ridge scape__ridge--2" d="M0 720 C180 660 360 700 520 650 S820 600 1000 660 S1360 720 1600 640 V1000 H0Z"/>
+              <path class="scape__ridge scape__ridge--3" d="M0 820 C240 760 420 800 640 750 S1000 700 1200 770 S1480 820 1600 780 V1000 H0Z"/>
+              <g class="scape__contours">
+                <path pathLength="1" d="M0 850 C240 790 420 830 640 780 S1000 730 1200 800 S1480 850 1600 810"/>
+                <path pathLength="1" d="M0 880 C240 820 420 860 640 812 S1000 762 1200 830 S1480 878 1600 842"/>
+                <path pathLength="1" d="M0 912 C240 852 420 892 640 846 S1000 796 1200 862 S1480 908 1600 874"/>
+              </g>
+              <path class="scape__ridge scape__ridge--4" d="M0 930 C300 880 560 910 800 870 S1240 850 1600 910 V1000 H0Z"/>
+            </svg>
           </div>
-        </figure>
+        </div>
 
         <h1 class="hero__title" id="hero-title">
           <span class="hero__line hero__line--a"><span class="hero__word" data-split="chars">Mmotong</span> <span class="hero__slash">/</span></span>
@@ -140,16 +140,8 @@
           <dl class="hero__meta">
             <div class="hero__meta-item"><dt>Place</dt><dd>Mmotong wa Perekisi, Polokwane, Limpopo</dd></div>
             <div class="hero__meta-item"><dt>Position</dt><dd>23.82° S, 29.35° E</dd></div>
-            <div class="hero__meta-item"><dt>First settled</dt><dd><span class="tbd">[Historical information to be added]</span></dd></div>
             <div class="hero__meta-item"><dt>Archive opened</dt><dd>2026</dd></div>
           </dl>
-          <details class="source source--up">
-            <summary>Image source</summary>
-            <div class="source__body">
-              <p>Photograph: [Creator] · [Year] · [Source]</p>
-              <p>Awaiting a community photograph. Position from the Census 2011 boundary of Perskebult.</p>
-            </div>
-          </details>
         </div>
       </div>
     </section>
@@ -178,22 +170,7 @@
             <div class="land__move">
               <div class="land__drift">
 
-                <figure class="land__layer plate is-active" data-layer="photo-1">
-                  <img class="plate__img" src="images/land-01.jpg" alt="The land around Mmotong from a high point" loading="lazy" decoding="async" width="2000" height="1333">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">The land around Mmotong from a high point: hills, fields and rooftops.</p>
-                    <p class="plate__file">images/land-01.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up">
-                      <summary>Image source</summary>
-                      <div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p><p>Awaiting a community photograph.</p></div>
-                    </details>
-                  </figcaption>
-                </figure>
-
-                <figure class="land__layer land__layer--map" data-layer="map-wide">
+                <figure class="land__layer land__layer--map is-active" data-layer="map-wide">
                   <svg class="map map--wide" viewBox="0 0 1000 920" role="img" aria-labelledby="map-wide-title map-wide-desc" preserveAspectRatio="xMidYMid meet">
   <title id="map-wide-title">Perskebult and Polokwane</title>
   <desc id="map-wide-desc">The Census 2011 boundary of Perskebult, about 14 kilometres north-west of central Polokwane.</desc>
@@ -214,7 +191,7 @@
   <g class="map__north" transform="translate(930 60)" aria-hidden="true"><path d="M0 22V-22M0 -22L-7 -8M0 -22L7 -8"/><text y="44" text-anchor="middle">N</text></g>
   <g class="map__scale" transform="translate(40 860)" aria-hidden="true"><path d="M0 0H262.3M0 -8V0M262.3 -8V0"/><text x="0" y="-16">5 km</text></g>
 </svg>
-                  <figcaption class="plate__credit">
+                  <figcaption class="credit">
                     <details class="source source--up">
                       <summary>Map source</summary>
                       <div class="source__body">
@@ -243,28 +220,13 @@
   <g class="map__north" transform="translate(930 60)" aria-hidden="true"><path d="M0 22V-22M0 -22L-7 -8M0 -22L7 -8"/><text y="44" text-anchor="middle">N</text></g>
   <g class="map__scale" transform="translate(40 940)" aria-hidden="true"><path d="M0 0H150M0 -8V0M150 -8V0"/><text x="0" y="-16">1 km</text></g>
 </svg>
-                  <figcaption class="plate__credit">
+                  <figcaption class="credit">
                     <details class="source source--up">
                       <summary>Map source</summary>
                       <div class="source__body">
                         <p>Boundary: Census 2011, Main Place 974041 (Statistics South Africa, via Adrian Frith’s Census 2011 site).</p>
                         <p>School location: Department of Basic Education school listing (NEIMS, 2007), as published by HowSimply.</p>
                       </div>
-                    </details>
-                  </figcaption>
-                </figure>
-
-                <figure class="land__layer plate" data-layer="photo-2">
-                  <img class="plate__img" src="images/land-02.jpg" alt="New Era Drive, the R567, passing through Perskebult" loading="lazy" decoding="async" width="2000" height="1333">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">The R567 through Perskebult, ideally looking along the road.</p>
-                    <p class="plate__file">images/land-02.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up">
-                      <summary>Image source</summary>
-                      <div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p><p>Awaiting a community photograph.</p></div>
                     </details>
                   </figcaption>
                 </figure>
@@ -276,7 +238,7 @@
         </div>
 
         <div class="land__steps">
-          <article class="land__step" data-layer="photo-1" data-zoom="1.08" data-x="0" data-y="0" data-tag="The land">
+          <article class="land__step" data-layer="map-wide" data-zoom="1.06" data-x="0" data-y="0" data-tag="The land">
             <h3 class="land__title">Between Seshego and Moletjie</h3>
             <p>Mmotong wa Perekisi sits north-west of Polokwane, in the Capricorn District of Limpopo. Maps and records also call it Perskebult, and some addresses write Perskebuilt.</p>
             <p class="src">Sources: <a href="https://zeno.fm/radio/mmotong-fm/" target="_blank" rel="noopener">Mmotong FM on Zeno.FM</a>, which describes the village as lying between Seshego and Moletjie; <a href="https://census2011.adrianfrith.com/place/974041" target="_blank" rel="noopener">Census 2011, Main Place 974041</a>; <a href="http://gracelandcs.org/contact.html" target="_blank" rel="noopener">Graceland Combined School</a>.</p>
@@ -294,15 +256,15 @@
             <p class="src">Sources: <a href="https://census2011.adrianfrith.com/place/974041" target="_blank" rel="noopener">Census 2011</a>; <a href="https://www.school-register.co.za/school/mphareng/" target="_blank" rel="noopener">Mphareng Primary</a> and <a href="https://howsimply.com/mohlapetse-secondary-school-959-mmotong-wa-perekisi-ga-mabotja/" target="_blank" rel="noopener">Mohlapetse Secondary</a> school listings.</p>
           </article>
 
-          <article class="land__step" data-layer="photo-2" data-zoom="1.14" data-x="-3" data-y="2" data-tag="The R567">
+          <article class="land__step" data-layer="map-close" data-zoom="1.12" data-x="-2" data-y="1" data-tag="The R567">
             <h3 class="land__title">The road through</h3>
             <p>New Era Drive, part of the R567, passes through Perskebult. The same road carries on to villages like Mabokelele, about 25 km north-west of Polokwane.</p>
             <p class="src">Sources: <a href="https://www.waze.com/live-map/directions/usave-mmotong-new-era-dr-(r567)-perskebult,-polokwane?to=place.w.19269146.192560385.17636995" target="_blank" rel="noopener">map listing on New Era Dr (R567), Perskebult</a>; <a href="https://en.wikipedia.org/wiki/Mabokelele" target="_blank" rel="noopener">Wikipedia, Mabokelele</a>.</p>
           </article>
 
-          <article class="land__step" data-layer="photo-1" data-zoom="1.26" data-x="4" data-y="-3" data-tag="Land and water">
+          <article class="land__step" data-layer="map-close" data-zoom="1.2" data-x="3" data-y="-2" data-tag="Land and water">
             <h3 class="land__title">Land and water</h3>
-            <p>Maps mark a Perskebult Dam. The hills, fields and footpaths that shaped daily life here, and how people first came to settle this land: <span class="tbd">[Historical information to be added]</span></p>
+            <p>Maps mark a Perskebult Dam. The hills, fields and footpaths that shaped daily life here, and how people first came to settle this land</p>
             <p class="src">Source: <a href="https://www.waze.com/live-map/directions/perskebult-dam-perskebult,-polokwane?to=place.w.19203610.192298242.17642826" target="_blank" rel="noopener">map listing for Perskebult Dam</a>.</p>
           </article>
         </div>
@@ -322,7 +284,7 @@
 
           <div class="name__mm">
             <p class="name__mm-word">Mmotong</p>
-            <p class="name__mm-text">What the name means, and who first called this place by it: <span class="tbd">[Historical information to be added]</span></p>
+            <p class="name__mm-text">The name represents a hilly village populated with peaches(Perekisi).</p>
           </div>
 
           <div class="name__end">
@@ -332,6 +294,13 @@
         </div>
       </div>
     </section>
+
+
+    <!-- Every name the place goes by, sliding past on two rails. -->
+    <div class="ticker" data-scene="ticker" aria-hidden="true">
+      <p class="ticker__row"><span>Mmotong wa Perekisi</span><span>Perskebult</span><span>Perskebuilt</span><span>Mmotong wa Perskebult</span><span>Mmotong wa Perekisi</span><span>Perskebult</span><span>Perskebuilt</span><span>Mmotong wa Perskebult</span></p>
+      <p class="ticker__row ticker__row--b"><span>Ga-Mokgokong</span><span>Ga-Mabotja</span><span>Makgofe</span><span>Seshego</span><span>Moletjie</span><span>Polokwane</span><span>Ga-Mokgokong</span><span>Ga-Mabotja</span><span>Makgofe</span><span>Seshego</span><span>Moletjie</span><span>Polokwane</span></p>
+    </div>
 
 
     <!-- =====================================================================
@@ -348,65 +317,16 @@
         </div>
       </header>
 
-      <!-- Staged reveal: 20% → 50% → 80% → 100% of the photograph -->
-      <div class="uncover" data-scene="uncover">
-        <div class="uncover__pin">
-          <figure class="uncover__plate">
-            <div class="uncover__reveal plate plate--center">
-              <img class="plate__img" src="images/history-01.jpg" alt="The oldest known photograph of Mmotong" loading="lazy" decoding="async" width="2000" height="1400">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">The oldest photograph of Mmotong you can find: a homestead, a wedding, a school class, a street.</p>
-                <p class="plate__file">images/history-01.jpg</p>
-              </div>
-            </div>
-            <span class="uncover__corner uncover__corner--tl" aria-hidden="true"></span>
-            <span class="uncover__corner uncover__corner--tr" aria-hidden="true"></span>
-            <span class="uncover__corner uncover__corner--bl" aria-hidden="true"></span>
-            <span class="uncover__corner uncover__corner--br" aria-hidden="true"></span>
-            <figcaption class="uncover__caption">
-              <dl class="uncover__facts">
-                <div><dt>Date</dt><dd>[to be added]</dd></div>
-                <div><dt>Place</dt><dd>[to be added]</dd></div>
-                <div><dt>Shared by</dt><dd>[to be added]</dd></div>
-              </dl>
-              <details class="source source--up">
-                <summary>Image source</summary>
-                <div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p><p>Awaiting a community photograph.</p></div>
-              </details>
-            </figcaption>
-          </figure>
-
-          <div class="uncover__readout" aria-hidden="true">
-            <p class="uncover__pct-line"><span class="uncover__pct">20</span><span class="uncover__unit">%</span></p>
-            <p class="uncover__label">of the photograph uncovered</p>
-            <ol class="uncover__stages">
-              <li>20</li><li>50</li><li>80</li><li>100</li>
-            </ol>
-          </div>
-        </div>
-      </div>
-
       <div class="story">
-        <figure class="story__plate plate" data-reveal="wipe">
-          <img class="plate__img" src="images/history-02.jpg" alt="A class photograph from one of Mmotong’s schools" loading="lazy" decoding="async" width="1600" height="1200">
-          <div class="plate__wanted">
-            <p class="plate__kicker">Photograph wanted</p>
-            <p class="plate__desc">A class photograph from one of Mmotong’s schools, any decade before 2000.</p>
-            <p class="plate__file">images/history-02.jpg</p>
-          </div>
-          <figcaption class="plate__credit">
-            <details class="source source--up">
-              <summary>Image source</summary>
-              <div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p><p>Awaiting a community photograph.</p></div>
-            </details>
-          </figcaption>
-        </figure>
+        <!-- The Lebowa years as a column of dates that light up in turn. -->
+        <ol class="years" data-reveal="fade" aria-label="Lebowa, in four dates">
+          <li style="--i:0"><span class="years__num">1962</span><span class="years__what">A territorial authority is set up for Lebowa</span></li>
+          <li style="--i:1"><span class="years__num">1972</span><span class="years__what">Self-government; Seshego becomes the capital</span></li>
+          <li style="--i:2"><span class="years__num">1974</span><span class="years__what">The capital moves on from Seshego</span></li>
+          <li style="--i:3"><span class="years__num">1994</span><span class="years__what">Lebowa is abolished</span></li>
+        </ol>
 
         <div class="story__text">
-          <h3 class="story__title">The story behind the photograph</h3>
-          <p class="story__gap"><span class="tbd">[Historical information to be added]</span></p>
-          <p>Who is in it, who took it, and what was happening that day. Those details will come from the family who shares it.</p>
 
           <aside class="clue" data-reveal="fade" aria-labelledby="clue-title">
             <h4 class="clue__title" id="clue-title">A clue in the school records</h4>
@@ -416,19 +336,17 @@
         </div>
       </div>
 
-      <!-- TIMELINE — each decade is shown in the photographic medium of its time -->
+      <!-- TIMELINE — each decade gets a CSS-drawn "print" in the look of its time -->
       <div class="timeline" id="timeline" aria-labelledby="timeline-title">
         <div class="timeline__head">
           <h3 class="timeline__title" id="timeline-title">Decade by decade</h3>
-          <p>Each decade is shown the way its photographs looked. Community records fill in as people share them. Regional context comes from published histories.</p>
+          <p>Each decade is printed in the look of its own photographs. Community records fill in as people share them. Regional context comes from published histories.</p>
         </div>
 
         <nav class="timeline__nav" aria-label="Jump to a decade">
           <a class="timeline__chip" href="#d-1960s">1960s</a>
           <a class="timeline__chip" href="#d-1970s">1970s</a>
-          <a class="timeline__chip" href="#d-1980s">1980s</a>
           <a class="timeline__chip" href="#d-1990s">1990s</a>
-          <a class="timeline__chip" href="#d-2000s">2000s</a>
           <a class="timeline__chip" href="#d-2010s">2010s</a>
           <a class="timeline__chip" href="#d-today">Today</a>
         </nav>
@@ -441,24 +359,10 @@
               <span class="decade__dot" aria-hidden="true"></span>
               <p class="decade__year" aria-hidden="true">1960s</p>
               <div class="decade__content">
-                <figure class="decade__media plate medium medium--silver">
-                  <img class="plate__img" src="images/timeline-1960s.jpg" alt="Mmotong in the 1960s" loading="lazy" decoding="async" width="1200" height="1200">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Any photograph of Mmotong from the 1960s.</p>
-                    <p class="plate__file">images/timeline-1960s.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
+                <div class="decade__art art art--silver" aria-hidden="true"><span class="art__year">1960s</span><span class="art__note">Silver print</span></div>
                 <div class="decade__text">
                   <h4 class="decade__title">The 1960s</h4>
-                  <p class="decade__medium">Shown as a black-and-white print</p>
-                  <div class="decade__entry">
-                    <h5>Community record</h5>
-                    <p><span class="tbd">[Historical information to be added]</span></p>
-                  </div>
+                  <p class="decade__medium">Styled like a black-and-white print</p>
                   <div class="decade__entry decade__entry--context">
                     <h5>Regional context</h5>
                     <p><strong>1962.</strong> A territorial authority is set up for Lebowa, the homeland the apartheid government designated for Northern Sotho speakers.</p>
@@ -472,24 +376,10 @@
               <span class="decade__dot" aria-hidden="true"></span>
               <p class="decade__year" aria-hidden="true">1970s</p>
               <div class="decade__content">
-                <figure class="decade__media plate medium medium--faded">
-                  <img class="plate__img" src="images/timeline-1970s.jpg" alt="Mmotong in the 1970s" loading="lazy" decoding="async" width="1500" height="1000">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Any photograph of Mmotong from the 1970s.</p>
-                    <p class="plate__file">images/timeline-1970s.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
+                <div class="decade__art art art--faded" aria-hidden="true"><span class="art__year">1970s</span><span class="art__note">Colour film</span></div>
                 <div class="decade__text">
                   <h4 class="decade__title">The 1970s</h4>
-                  <p class="decade__medium">Shown as faded colour film</p>
-                  <div class="decade__entry">
-                    <h5>Community record</h5>
-                    <p><span class="tbd">[Historical information to be added]</span></p>
-                  </div>
+                  <p class="decade__medium">Styled like faded colour film</p>
                   <div class="decade__entry decade__entry--context">
                     <h5>Regional context</h5>
                     <p><strong>1972.</strong> Lebowa is granted self-government. Seshego, Mmotong’s neighbour, serves as its capital until 1974.</p>
@@ -499,54 +389,14 @@
               </div>
             </li>
 
-            <li class="decade decade--1980s" id="d-1980s">
-              <span class="decade__dot" aria-hidden="true"></span>
-              <p class="decade__year" aria-hidden="true">1980s</p>
-              <div class="decade__content">
-                <figure class="decade__media plate medium medium--instant">
-                  <img class="plate__img" src="images/timeline-1980s.jpg" alt="Mmotong in the 1980s" loading="lazy" decoding="async" width="1000" height="1000">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Any photograph of Mmotong from the 1980s.</p>
-                    <p class="plate__file">images/timeline-1980s.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
-                <div class="decade__text">
-                  <h4 class="decade__title">The 1980s</h4>
-                  <p class="decade__medium">Shown as an instant photograph</p>
-                  <div class="decade__entry">
-                    <h5>Community record</h5>
-                    <p><span class="tbd">[Historical information to be added]</span></p>
-                  </div>
-                </div>
-              </div>
-            </li>
-
             <li class="decade decade--1990s" id="d-1990s">
               <span class="decade__dot" aria-hidden="true"></span>
               <p class="decade__year" aria-hidden="true">1990s</p>
               <div class="decade__content">
-                <figure class="decade__media plate medium medium--flash">
-                  <img class="plate__img" src="images/timeline-1990s.jpg" alt="Mmotong in the 1990s" loading="lazy" decoding="async" width="1500" height="1000">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Any photograph of Mmotong from the 1990s.</p>
-                    <p class="plate__file">images/timeline-1990s.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
+                <div class="decade__art art art--flash" aria-hidden="true"><span class="art__year">1990s</span><span class="art__note">’9_ flash</span></div>
                 <div class="decade__text">
                   <h4 class="decade__title">The 1990s</h4>
-                  <p class="decade__medium">Shown as a flash print</p>
-                  <div class="decade__entry">
-                    <h5>Community record</h5>
-                    <p><span class="tbd">[Historical information to be added]</span></p>
-                  </div>
+                  <p class="decade__medium">Styled like a flash print</p>
                   <div class="decade__entry decade__entry--context">
                     <h5>Regional context</h5>
                     <p><strong>1994.</strong> Lebowa is abolished. The area becomes part of the new Northern Province, known today as Limpopo.</p>
@@ -556,50 +406,14 @@
               </div>
             </li>
 
-            <li class="decade decade--2000s" id="d-2000s">
-              <span class="decade__dot" aria-hidden="true"></span>
-              <p class="decade__year" aria-hidden="true">2000s</p>
-              <div class="decade__content">
-                <figure class="decade__media plate medium medium--digital">
-                  <img class="plate__img" src="images/timeline-2000s.jpg" alt="Mmotong in the 2000s" loading="lazy" decoding="async" width="1600" height="1200">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Any photograph of Mmotong from the 2000s.</p>
-                    <p class="plate__file">images/timeline-2000s.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
-                <div class="decade__text">
-                  <h4 class="decade__title">The 2000s</h4>
-                  <p class="decade__medium">Shown as an early digital photograph</p>
-                  <div class="decade__entry">
-                    <h5>Community record</h5>
-                    <p><span class="tbd">[Historical information to be added]</span></p>
-                  </div>
-                </div>
-              </div>
-            </li>
-
             <li class="decade decade--2010s" id="d-2010s">
               <span class="decade__dot" aria-hidden="true"></span>
               <p class="decade__year" aria-hidden="true">2010s</p>
               <div class="decade__content">
-                <figure class="decade__media plate medium medium--phone">
-                  <img class="plate__img" src="images/timeline-2010s.jpg" alt="Mmotong in the 2010s" loading="lazy" decoding="async" width="1200" height="1600">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Any photograph of Mmotong from the 2010s.</p>
-                    <p class="plate__file">images/timeline-2010s.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
+                <div class="decade__art art art--phone" aria-hidden="true"><span class="art__year">2010s</span><span class="art__note">Phone camera</span></div>
                 <div class="decade__text">
                   <h4 class="decade__title">The 2010s</h4>
-                  <p class="decade__medium">Shown as a phone photograph</p>
+                  <p class="decade__medium">Styled like a phone photograph</p>
                   <div class="decade__entry">
                     <h5>Community record</h5>
                     <p><strong>2011.</strong> The national census counts 17&nbsp;006 people in 4&nbsp;581 households in Perskebult.</p>
@@ -614,20 +428,10 @@
               <span class="decade__dot" aria-hidden="true"></span>
               <p class="decade__year" aria-hidden="true">Today</p>
               <div class="decade__content">
-                <figure class="decade__media plate medium medium--now">
-                  <img class="plate__img" src="images/timeline-today.jpg" alt="Mmotong today" loading="lazy" decoding="async" width="1920" height="1080">
-                  <div class="plate__wanted">
-                    <p class="plate__kicker">Photograph wanted</p>
-                    <p class="plate__desc">Mmotong this year, in full colour.</p>
-                    <p class="plate__file">images/timeline-today.jpg</p>
-                  </div>
-                  <figcaption class="plate__credit">
-                    <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-                  </figcaption>
-                </figure>
+                <div class="decade__art art art--now" aria-hidden="true"><span class="art__year">Today</span><span class="art__note">2026 · full colour</span></div>
                 <div class="decade__text">
                   <h4 class="decade__title">Today</h4>
-                  <p class="decade__medium">Shown in full colour</p>
+                  <p class="decade__medium">Styled in full colour</p>
                   <div class="decade__entry">
                     <h5>Community record</h5>
                     <p>Four schools list Mmotong addresses, and Mmotong FM streams online as a community radio station. This archive opens in 2026.</p>
@@ -663,97 +467,15 @@
           <li><span class="count" data-count="4581"><span class="sr-only">4 581</span><span class="count__num" aria-hidden="true">4&nbsp;581</span></span><span class="census__label">households</span></li>
           <li><span class="count" data-count="89" data-suffix="%"><span class="sr-only">89%</span><span class="count__num" aria-hidden="true">89%</span></span><span class="census__label">with Sepedi as a first language</span></li>
         </ul>
+        <figure class="dots-figure">
+          <div class="dots" data-dots="170" aria-hidden="true"></div>
+          <figcaption class="dots__key"><span class="dots__swatch" aria-hidden="true"></span>Each dot is a hundred people.</figcaption>
+        </figure>
         <p class="census__note">Numbers can’t say who they were. Their stories can.</p>
         <p class="src census__src">Source: <a href="https://census2011.adrianfrith.com/place/974041" target="_blank" rel="noopener">Census 2011, Main Place Perskebult (974041)</a>, Statistics South Africa data via Adrian Frith.</p>
       </div>
 
-      <!-- Portrait scenes. data-at = scroll progress (0–1) at which a line appears. -->
-      <article class="portrait" data-scene="portrait" aria-labelledby="person-1">
-        <div class="portrait__pin">
-          <figure class="portrait__frame plate">
-            <div class="portrait__inner">
-              <img class="plate__img" src="images/people-01.jpg" alt="Portrait of one of Mmotong’s elders" loading="lazy" decoding="async" width="1200" height="1500">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Portrait wanted</p>
-                <p class="plate__desc">One of Mmotong’s elders, photographed with their permission.</p>
-                <p class="plate__file">images/people-01.jpg</p>
-              </div>
-            </div>
-            <p class="subtitle" data-at=".74"><span class="subtitle__text">“I remember when this entire road was just dust.”</span><span class="subtitle__tag">Example subtitle, to be replaced with a recorded quote</span></p>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
-          <div class="portrait__text">
-            <p class="portrait__role reveal-fade" data-at=".34">Elders</p>
-            <h3 class="portrait__name reveal-rise" id="person-1" data-at=".4"><span>[Name to be added]</span></h3>
-            <p class="portrait__context reveal-fade" data-at=".46">Years in Mmotong: [to be added]</p>
-            <div class="portrait__story">
-              <p class="reveal-wipe" data-at=".52"><span class="tbd">[Story to be added]</span></p>
-              <p class="reveal-wipe" data-at=".58">Told in their own words, in Sepedi or English,</p>
-              <p class="reveal-wipe" data-at=".64">and shared with the family’s permission.</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="portrait portrait--flip" data-scene="portrait" aria-labelledby="person-2">
-        <div class="portrait__pin">
-          <figure class="portrait__frame plate">
-            <div class="portrait__inner">
-              <img class="plate__img" src="images/people-02.jpg" alt="Portrait of a teacher from one of Mmotong’s schools" loading="lazy" decoding="async" width="1200" height="1500">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Portrait wanted</p>
-                <p class="plate__desc">A teacher who taught at one of Mmotong’s schools.</p>
-                <p class="plate__file">images/people-02.jpg</p>
-              </div>
-            </div>
-            <p class="subtitle" data-at=".74"><span class="subtitle__text"><span class="tbd">[Quote to be added]</span></span></p>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
-          <div class="portrait__text">
-            <p class="portrait__role reveal-fade" data-at=".34">Teachers</p>
-            <h3 class="portrait__name reveal-rise" id="person-2" data-at=".4"><span>[Name to be added]</span></h3>
-            <p class="portrait__context reveal-fade" data-at=".46">School and years: [to be added]</p>
-            <div class="portrait__story">
-              <p class="reveal-wipe" data-at=".52"><span class="tbd">[Story to be added]</span></p>
-              <p class="reveal-wipe" data-at=".58">Which school, which subjects,</p>
-              <p class="reveal-wipe" data-at=".64">and which learners still remember them.</p>
-            </div>
-          </div>
-        </div>
-      </article>
-
-      <article class="portrait" data-scene="portrait" aria-labelledby="person-3">
-        <div class="portrait__pin">
-          <figure class="portrait__frame plate">
-            <div class="portrait__inner">
-              <img class="plate__img" src="images/people-03.jpg" alt="Portrait of someone who built something in Mmotong" loading="lazy" decoding="async" width="1200" height="1500">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Portrait wanted</p>
-                <p class="plate__desc">Someone who built something here: a business, a team, a choir, a church.</p>
-                <p class="plate__file">images/people-03.jpg</p>
-              </div>
-            </div>
-            <p class="subtitle" data-at=".74"><span class="subtitle__text"><span class="tbd">[Quote to be added]</span></span></p>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
-          <div class="portrait__text">
-            <p class="portrait__role reveal-fade" data-at=".34">Builders and leaders</p>
-            <h3 class="portrait__name reveal-rise" id="person-3" data-at=".4"><span>[Name to be added]</span></h3>
-            <p class="portrait__context reveal-fade" data-at=".46">What they built: [to be added]</p>
-            <div class="portrait__story">
-              <p class="reveal-wipe" data-at=".52"><span class="tbd">[Story to be added]</span></p>
-              <p class="reveal-wipe" data-at=".58">Leaders, entrepreneurs and workers</p>
-              <p class="reveal-wipe" data-at=".64">who shaped everyday life here.</p>
-            </div>
-          </div>
-        </div>
-      </article>
+      <p class="people__note">The elders, teachers and builders who shaped this community will be written in here — in their own words, once their families are ready to share them.</p>
 
       <div class="roles">
         <h3 class="roles__title">Who belongs in this chapter</h3>
@@ -767,7 +489,8 @@
 
     <!-- =====================================================================
          CHAPTER 04 — PLACES THAT TELL STORIES
-         data-focus = the point the camera pushes toward ("x% y%")
+         Each place is a pinned scene: a line drawing sketches itself in as
+         you scroll. data-focus = the point the camera pushes toward ("x% y%")
          ===================================================================== -->
     <section class="chapter chapter--places" id="places" data-chapter="04" data-title="The Places" data-nav="places" aria-labelledby="places-title">
 
@@ -782,104 +505,52 @@
 
       <article class="place" data-scene="place" data-focus="58% 46%" aria-labelledby="place-1">
         <div class="place__pin">
-          <figure class="place__media plate">
-            <div class="place__zoom">
-              <img class="plate__img" src="images/place-01.jpg" alt="Mphareng Primary School in Makgofe village, Mmotong" loading="lazy" decoding="async" width="2000" height="1333">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">Mphareng Primary School: the buildings, a class photograph or a school event. Any year.</p>
-                <p class="plate__file">images/place-01.jpg</p>
-              </div>
-            </div>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
+          <div class="place__art" aria-hidden="true"><p class="place__ghost">School</p><div class="place__zoom"><svg class="sketch" viewBox="0 0 400 300"><path pathLength="1" d="M40 252H360"/><path pathLength="1" d="M90 252V150H310V252"/><path pathLength="1" d="M68 156L200 88L332 156"/><path pathLength="1" d="M182 252V198H218V252"/><path pathLength="1" d="M116 176h44v32h-44z"/><path pathLength="1" d="M240 176h44v32h-44z"/><path pathLength="1" d="M200 88V48"/><path pathLength="1" d="M200 48h30v16h-30"/></svg></div></div>
           <div class="place__caption">
             <p class="place__kind">School</p>
             <h3 class="place__name" id="place-1">Mphareng Primary School</h3>
             <p class="place__where">Makgofe village, Mmotong wa Perskebult</p>
           </div>
-          <p class="place__line reveal-fade" data-at=".16" data-until=".52">Its records name its former education department: Lebowa.</p>
-          <p class="place__line reveal-fade" data-at=".56">It opened in <span class="tbd">[year to be added]</span>. Its first teachers were <span class="tbd">[to be added]</span>.</p>
+          <p class="place__line reveal-fade" data-at=".16">Its records name its former education department: Lebowa.</p>
           <p class="place__src src reveal-fade" data-at=".2">Source: <a href="https://www.school-register.co.za/school/mphareng/" target="_blank" rel="noopener">school listing, EMIS 922221081</a>.</p>
         </div>
       </article>
 
       <article class="place" data-scene="place" data-focus="40% 62%" aria-labelledby="place-2">
         <div class="place__pin">
-          <figure class="place__media plate">
-            <div class="place__zoom">
-              <img class="plate__img" src="images/place-02.jpg" alt="An old photograph of New Era Drive, the R567" loading="lazy" decoding="async" width="2000" height="1333">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">An old photograph of New Era Drive (R567), from any decade.</p>
-                <p class="plate__file">images/place-02.jpg</p>
-              </div>
-            </div>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
+          <div class="place__art" aria-hidden="true"><p class="place__ghost">Road</p><div class="place__zoom"><svg class="sketch" viewBox="0 0 400 300"><path pathLength="1" d="M10 74H390"/><path pathLength="1" d="M40 286L184 74"/><path pathLength="1" d="M360 286L216 74"/><path pathLength="1" d="M200 286V256M200 236V212M200 196V178M200 166V152M200 143V132M200 125V117M200 112V106"/><circle pathLength="1" cx="318" cy="46" r="17"/></svg></div></div>
           <div class="place__caption">
             <p class="place__kind">Road</p>
             <h3 class="place__name" id="place-2">New Era Drive, R567</h3>
             <p class="place__where">Through Perskebult</p>
           </div>
-          <p class="place__line reveal-fade" data-at=".16" data-until=".52">One road carries the village to Seshego, Moletjie and the city.</p>
-          <p class="place__line reveal-fade" data-at=".56">When was it first tarred? Who remembers it before? <span class="tbd">[Historical information to be added]</span></p>
+          <p class="place__line reveal-fade" data-at=".16">One road carries the village to Seshego, Moletjie and the city.</p>
           <p class="place__src src reveal-fade" data-at=".2">Source: <a href="https://www.waze.com/live-map/directions/usave-mmotong-new-era-dr-(r567)-perskebult,-polokwane?to=place.w.19269146.192560385.17636995" target="_blank" rel="noopener">map listing on New Era Dr (R567)</a>.</p>
         </div>
       </article>
 
       <article class="place" data-scene="place" data-focus="62% 38%" aria-labelledby="place-3">
         <div class="place__pin">
-          <figure class="place__media plate">
-            <div class="place__zoom">
-              <img class="plate__img" src="images/place-03.jpg" alt="Mmotong Church of the Nazarene" loading="lazy" decoding="async" width="2000" height="1333">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">Mmotong Church of the Nazarene: the building, the congregation or a service, with permission.</p>
-                <p class="plate__file">images/place-03.jpg</p>
-              </div>
-            </div>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
+          <div class="place__art" aria-hidden="true"><p class="place__ghost">Church</p><div class="place__zoom"><svg class="sketch" viewBox="0 0 400 300"><path pathLength="1" d="M50 258H350"/><path pathLength="1" d="M110 258V160L200 112L290 160V258"/><path pathLength="1" d="M176 124V62L200 42L224 62V124"/><path pathLength="1" d="M200 42V12M188 22H212"/><path pathLength="1" d="M184 258V218a16 16 0 0 1 32 0V258"/><path pathLength="1" d="M142 186v30M258 186v30"/></svg></div></div>
           <div class="place__caption">
             <p class="place__kind">Church</p>
             <h3 class="place__name" id="place-3">Mmotong Church of the Nazarene</h3>
             <p class="place__where">Perskebult</p>
           </div>
-          <p class="place__line reveal-fade" data-at=".16" data-until=".52">A congregation that carries the village’s name.</p>
-          <p class="place__line reveal-fade" data-at=".56">Founded in <span class="tbd">[year to be added]</span> by <span class="tbd">[to be added]</span>.</p>
+          <p class="place__line reveal-fade" data-at=".16">A congregation that carries the village’s name.</p>
           <p class="place__src src reveal-fade" data-at=".2">Source: <a href="https://www.facebook.com/people/Mmotong-Church-of-the-Nazarene/100069797736045/" target="_blank" rel="noopener">the church’s public page</a>.</p>
         </div>
       </article>
 
       <article class="place" data-scene="place" data-focus="50% 58%" aria-labelledby="place-4">
         <div class="place__pin">
-          <figure class="place__media plate">
-            <div class="place__zoom">
-              <img class="plate__img" src="images/place-04.jpg" alt="Perskebult Dam" loading="lazy" decoding="async" width="2000" height="1333">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">Perskebult Dam, at any time of year.</p>
-                <p class="plate__file">images/place-04.jpg</p>
-              </div>
-            </div>
-            <figcaption class="plate__credit plate__credit--top">
-              <details class="source"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-            </figcaption>
-          </figure>
+          <div class="place__art" aria-hidden="true"><p class="place__ghost">Water</p><div class="place__zoom"><svg class="sketch" viewBox="0 0 400 300"><path pathLength="1" d="M14 128C80 78 140 76 204 114S320 84 386 120"/><path pathLength="1" d="M48 168C130 158 270 158 352 168"/><path pathLength="1" d="M84 196C160 188 240 188 316 196"/><path pathLength="1" d="M118 222C180 217 220 217 282 222"/><path pathLength="1" d="M14 250H386"/><path pathLength="1" d="M14 268H386"/></svg></div></div>
           <div class="place__caption">
             <p class="place__kind">Water</p>
             <h3 class="place__name" id="place-4">Perskebult Dam</h3>
             <p class="place__where">Perskebult</p>
           </div>
-          <p class="place__line reveal-fade" data-at=".16" data-until=".52">Maps mark a dam that shares the name Perskebult.</p>
-          <p class="place__line reveal-fade" data-at=".56">What it meant to the village: <span class="tbd">[Historical information to be added]</span></p>
+          <p class="place__line reveal-fade" data-at=".16">Maps mark a dam that shares the name Perskebult.</p>
           <p class="place__src src reveal-fade" data-at=".2">Source: <a href="https://www.waze.com/live-map/directions/perskebult-dam-perskebult,-polokwane?to=place.w.19203610.192298242.17642826" target="_blank" rel="noopener">map listing for Perskebult Dam</a>.</p>
         </div>
       </article>
@@ -892,76 +563,18 @@
           <li><p class="index__name">Graceland Combined School</p><p class="index__note">Perskebuilt, Mmotong wa Perekisi.</p><a class="index__link" href="http://gracelandcs.org/contact.html" target="_blank" rel="noopener">Source</a></li>
           <li><p class="index__name">Mmotong post office</p><p class="index__note">Listed at Perskebult.</p><a class="index__link" href="https://postaldb.net/en/south-africa/post-office/view/852" target="_blank" rel="noopener">Source</a></li>
           <li><p class="index__name">Mmotong FM</p><p class="index__note">Online community radio based in Mmotong wa Perekisi.</p><a class="index__link" href="https://zeno.fm/radio/mmotong-fm/" target="_blank" rel="noopener">Source</a></li>
-          <li><p class="index__name">Places that no longer exist</p><p class="index__note"><span class="tbd">[Historical information to be added]</span></p></li>
         </ul>
       </div>
     </section>
 
 
     <!-- =====================================================================
-         CHAPTER 05 — THEN & NOW
-         Scroll moves the divider from THEN to NOW. Dragging the handle (or
-         using arrow keys on the slider) takes over until you leave the section.
+         CHAPTER 05 — MEMORIES
          ===================================================================== -->
-    <section class="chapter chapter--compare" id="then-now" data-chapter="05" data-title="Then &amp; Now" data-nav="then-now" aria-labelledby="compare-title">
+    <section class="chapter chapter--memories" id="memories" data-chapter="05" data-title="Memories" data-nav="memories" aria-labelledby="memories-title">
 
       <header class="opener" data-scene="opener">
         <p class="opener__num">Chapter 05</p>
-        <h2 class="opener__title" id="compare-title" data-split="chars">Then &amp; Now</h2>
-        <div class="opener__foot">
-          <span class="opener__rule" aria-hidden="true"></span>
-          <p class="opener__lead">How things changed.</p>
-        </div>
-      </header>
-
-      <div class="compare" data-scene="compare">
-        <div class="compare__pin">
-          <div class="compare__frame">
-            <figure class="compare__img compare__img--now plate">
-              <img class="plate__img" src="images/now.jpg" alt="The same place in Mmotong photographed today" loading="lazy" decoding="async" width="2000" height="1250">
-              <div class="plate__wanted plate__wanted--right">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">The same place, photographed today from the same spot.</p>
-                <p class="plate__file">images/now.jpg</p>
-              </div>
-            </figure>
-            <figure class="compare__img compare__img--then plate plate--aged">
-              <img class="plate__img" src="images/then.jpg" alt="An old photograph of a place in Mmotong that still exists" loading="lazy" decoding="async" width="2000" height="1250">
-              <div class="plate__wanted">
-                <p class="plate__kicker">Photograph wanted</p>
-                <p class="plate__desc">An old photograph of a place in Mmotong that still exists.</p>
-                <p class="plate__file">images/then.jpg</p>
-              </div>
-            </figure>
-
-            <p class="compare__label compare__label--then">Then <span>[year]</span></p>
-            <p class="compare__label compare__label--now">Now <span>[year]</span></p>
-
-            <input class="compare__range" id="compare-range" type="range" min="0" max="100" step="1" value="92" aria-label="Compare then and now. Move left to show more of today’s photograph.">
-            <div class="compare__handle" aria-hidden="true">
-              <span class="compare__bar"></span>
-              <span class="compare__hit" data-cursor="Drag"><span class="compare__knob"></span></span>
-            </div>
-          </div>
-          <div class="compare__foot">
-            <p>The same place, years apart. Which place depends on the photographs the community shares. <span class="tbd">[Location to be confirmed]</span></p>
-            <details class="source source--up">
-              <summary>Image sources</summary>
-              <div class="source__body"><p>Then: [Creator] · [Year] · [Source]</p><p>Now: [Creator] · [Year] · [Source]</p></div>
-            </details>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- =====================================================================
-         CHAPTER 06 — MEMORIES
-         ===================================================================== -->
-    <section class="chapter chapter--memories" id="memories" data-chapter="06" data-title="Memories" data-nav="memories" aria-labelledby="memories-title">
-
-      <header class="opener" data-scene="opener">
-        <p class="opener__num">Chapter 06</p>
         <h2 class="opener__title" id="memories-title" data-split="chars">Memories</h2>
         <div class="opener__foot">
           <span class="opener__rule" aria-hidden="true"></span>
@@ -971,22 +584,11 @@
 
       <!-- data-speed: parallax strength per fragment (desktop only) -->
       <div class="memories" data-scene="memories">
-        <figure class="fragment fragment--photo plate" data-speed="-0.14" data-reveal="wipe">
-          <img class="plate__img" src="images/memories-01.jpg" alt="An old family photograph from Mmotong" loading="lazy" decoding="async" width="1200" height="1500">
-          <div class="plate__wanted">
-            <p class="plate__kicker">Photograph wanted</p>
-            <p class="plate__desc">An old family photograph that goes with a memory.</p>
-            <p class="plate__file">images/memories-01.jpg</p>
-          </div>
-          <figcaption class="plate__credit">
-            <details class="source source--up"><summary>Image source</summary><div class="source__body"><p>Photograph: [Creator] · [Year] · [Source]</p></div></details>
-          </figcaption>
-        </figure>
 
         <blockquote class="fragment fragment--quote fragment--a" data-speed="0.06" data-reveal="blur">
           <span class="fragment__mark" aria-hidden="true">“</span>
           <p>I remember playing football here after school.</p>
-          <footer><span class="fragment__tag">Example memory</span> <span class="fragment__who">[Name and year to be added]</span></footer>
+          <footer><span class="fragment__tag">Example memory</span> <span class="fragment__who">Didintle Moratamotho</span></footer>
         </blockquote>
 
         <p class="fragment fragment--note" data-speed="0.18" data-reveal="fade">Your memory could go here.</p>
@@ -994,23 +596,13 @@
         <blockquote class="fragment fragment--quote fragment--b" data-speed="-0.04" data-reveal="blur">
           <span class="fragment__mark" aria-hidden="true">“</span>
           <p>My grandmother used to send us to that shop.</p>
-          <footer><span class="fragment__tag">Example memory</span> <span class="fragment__who">[Name and year to be added]</span></footer>
+          <footer><span class="fragment__tag">Example memory</span> <span class="fragment__who">Didintle Moratamotho</span></footer>
         </blockquote>
-
-        <!-- Audio: put a file path in data-audio (e.g. "audio/memory-01.mp3") and the player switches on. -->
-        <div class="fragment fragment--audio audio" data-audio="" data-speed="0.1" data-reveal="fade">
-          <button class="audio__btn" type="button" disabled aria-label="Play recording (not available yet)"><span class="audio__icon" aria-hidden="true"></span></button>
-          <div class="audio__body">
-            <p class="audio__title">Voice recording</p>
-            <div class="audio__wave" aria-hidden="true"></div>
-            <p class="audio__status">Recording to be added. Elders telling their stories will play here.</p>
-          </div>
-        </div>
 
         <blockquote class="fragment fragment--quote fragment--c" data-speed="0.12" data-reveal="blur">
           <span class="fragment__mark" aria-hidden="true">“</span>
           <p>That road wasn’t even tarred when I was growing up.</p>
-          <footer><span class="fragment__tag">Example memory</span> <span class="fragment__who">[Name and year to be added]</span></footer>
+          <footer><span class="fragment__tag">Example memory</span> <span class="fragment__who">Didintle Moratamotho</span></footer>
         </blockquote>
 
         <p class="fragment fragment--note fragment--note-b" data-speed="-0.1" data-reveal="fade">Say it in Sepedi if that’s how you remember it.</p>
@@ -1019,14 +611,12 @@
 
 
     <!-- =====================================================================
-         CHAPTER 07 — THE COMMUNITY TODAY
-         Horizontal reel. Photographs "develop" from sepia to full colour as
-         they cross the frame, while a year counter runs from 1960 to 2026.
+         CHAPTER 06 — THE COMMUNITY TODAY
          ===================================================================== -->
-    <section class="chapter chapter--today" id="today" data-chapter="07" data-title="Today" data-nav="today" aria-labelledby="today-title">
+    <section class="chapter chapter--today" id="today" data-chapter="06" data-title="Today" data-nav="today" aria-labelledby="today-title">
 
       <header class="opener" data-scene="opener">
-        <p class="opener__num">Chapter 07</p>
+        <p class="opener__num">Chapter 06</p>
         <h2 class="opener__title" id="today-title" data-split="chars">Today</h2>
         <div class="opener__foot">
           <span class="opener__rule" aria-hidden="true"></span>
@@ -1038,84 +628,10 @@
         <p class="young__figure"><span class="count" data-count="54.6" data-decimals="1" data-suffix="%"><span class="sr-only">54.6%</span><span class="count__num" aria-hidden="true">54.6%</span></span></p>
         <div class="young__text">
           <h3 class="young__title">A young community</h3>
-          <p>In 2011, more than half of Perskebult’s residents were under 25. Many of the people in this chapter’s photographs will be the ones who carry the story forward.</p>
+          <p>In 2011, more than half of Perskebult’s residents were under 25. They are the ones who will carry this story forward.</p>
+          <div class="dots dots--grid" data-dots="100" data-fill="55" aria-hidden="true"></div>
+          <p class="dots__key"><span class="dots__swatch dots__swatch--peach" aria-hidden="true"></span>Out of every hundred residents, about fifty-five were under 25.</p>
           <p class="src">Source: <a href="https://census2011.adrianfrith.com/place/974041" target="_blank" rel="noopener">Census 2011 age breakdown for Perskebult</a> (9&nbsp;278 of 17&nbsp;006 residents).</p>
-        </div>
-      </div>
-
-      <div class="reel" data-scene="reel" aria-label="Photographs of Mmotong today">
-        <div class="reel__pin">
-          <p class="reel__year" aria-hidden="true"><span class="reel__year-num">1960</span></p>
-          <p class="reel__hint">From the past to the present. Photographs develop as they reach you.</p>
-          <ul class="reel__track">
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-01.jpg" alt="A street in Mmotong today" loading="lazy" decoding="async" width="1200" height="1500">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">A street in Mmotong today. Morning or evening light works best.</p><p class="plate__file">images/today-01.jpg</p></div>
-              </figure>
-              <p class="reel__label">Streets</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-02.jpg" alt="Young people of Mmotong" loading="lazy" decoding="async" width="1200" height="1200">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">Young people of Mmotong, with their permission and their parents’ permission.</p><p class="plate__file">images/today-02.jpg</p></div>
-              </figure>
-              <p class="reel__label">Young people</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-03.jpg" alt="One of Mmotong’s schools today" loading="lazy" decoding="async" width="1200" height="1500">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">One of the schools today: a gate, a classroom, an assembly.</p><p class="plate__file">images/today-03.jpg</p></div>
-              </figure>
-              <p class="reel__label">Schools</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-04.jpg" alt="A local business in Mmotong" loading="lazy" decoding="async" width="1200" height="1500">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">A spaza shop, salon, workshop or stall, with the owner’s permission.</p><p class="plate__file">images/today-04.jpg</p></div>
-              </figure>
-              <p class="reel__label">Businesses</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-05.jpg" alt="Sport in Mmotong" loading="lazy" decoding="async" width="1200" height="1200">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">A football match, netball game or training session.</p><p class="plate__file">images/today-05.jpg</p></div>
-              </figure>
-              <p class="reel__label">Sport</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-06.jpg" alt="A community event in Mmotong" loading="lazy" decoding="async" width="1200" height="1500">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">A wedding, church service or community meeting, with permission.</p><p class="plate__file">images/today-06.jpg</p></div>
-              </figure>
-              <p class="reel__label">Community events</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-07.jpg" alt="Everyday life in Mmotong" loading="lazy" decoding="async" width="1200" height="1500">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">Everyday life: cooking, visiting, walking home.</p><p class="plate__file">images/today-07.jpg</p></div>
-              </figure>
-              <p class="reel__label">Local life</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-08.jpg" alt="The areas around Mmotong" loading="lazy" decoding="async" width="1200" height="1200">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">The neighbouring areas: Seshego, Moletjie, Makgofe, Ga-Mabotja.</p><p class="plate__file">images/today-08.jpg</p></div>
-              </figure>
-              <p class="reel__label">Surrounding areas</p>
-            </li>
-            <li class="reel__card">
-              <figure class="plate">
-                <img class="plate__img" src="images/today-09.jpg" alt="The landscape around Perskebult today" loading="lazy" decoding="async" width="1500" height="1000">
-                <div class="plate__wanted"><p class="plate__kicker">Photograph wanted</p><p class="plate__desc">The landscape around Perskebult as it looks today.</p><p class="plate__file">images/today-09.jpg</p></div>
-              </figure>
-              <p class="reel__label">The landscape</p>
-            </li>
-          </ul>
-          <details class="source source--up reel__source">
-            <summary>Image sources</summary>
-            <div class="source__body"><p>Each photograph: [Creator] · [Year] · [Source]. Awaiting community photographs.</p></div>
-          </details>
         </div>
       </div>
 
@@ -1137,33 +653,29 @@
 
 
     <!-- =====================================================================
-         CHAPTER 08 — THE FUTURE
-         The archive's fragments drift away until only the photograph and the
-         statement remain.
+         CHAPTER 07 — THE FUTURE
+         The archive's fragments drift away while the village outline draws
+         itself, until only the shape and the statement remain.
          ===================================================================== -->
-    <section class="chapter chapter--future" id="future" data-chapter="08" data-title="The Future" aria-labelledby="future-title">
+    <section class="chapter chapter--future" id="future" data-chapter="07" data-title="The Future" aria-labelledby="future-title">
       <div class="future" data-scene="future">
         <div class="future__pin">
-          <figure class="future__media plate plate--center">
-            <img class="plate__img" src="images/future.jpg" alt="Mmotong’s next generation" loading="lazy" decoding="async" width="2400" height="1600">
-            <div class="plate__wanted">
-              <p class="plate__kicker">Photograph wanted</p>
-              <p class="plate__desc">Mmotong’s next generation, photographed this year, with permission.</p>
-              <p class="plate__file">images/future.jpg</p>
-            </div>
-          </figure>
+          <!-- The village boundary draws itself while rings grow out from it. -->
+          <div class="future__mark" aria-hidden="true">
+            <span class="ring ring--1"></span><span class="ring ring--2"></span><span class="ring ring--3"></span><span class="ring ring--4"></span>
+            <svg class="future__shape" viewBox="0 0 100 100"><path pathLength="1" d="M71.2 43.9 L72.4 44.1 L72.8 45.4 L75.2 46.1 L78 50.6 L83.1 53.5 L85.8 57.9 L87.8 58.1 L86.9 60.1 L89.1 60.4 L92.7 66.9 L94.4 67 L96.9 69.5 L94.4 69 L91.6 71 L88.1 71.2 L87 72.3 L80.4 72.7 L77.5 73.7 L76.2 73.2 L70.7 76.2 L72.5 77.7 L75.4 85.9 L35.2 96 L33.6 90.7 L31.8 91 L31 88.8 L27.8 86.4 L27.4 81.2 L26.1 78.6 L22.7 75.6 L25.9 74.1 L36.7 73.7 L39 71.9 L46.1 69.5 L45.8 68.7 L47.3 66.2 L53.1 62.6 L50.2 57 L49.6 54.7 L50.5 53.9 L49.6 52.2 L46.2 46.4 L32.3 53.8 L25.2 56.5 L17.7 66.2 L14.2 66.4 L6.6 55.7 L6.9 53.9 L4.2 47 L5.1 44 L3.1 40.7 L3.8 38.7 L12.4 32 L12.8 30.6 L14.8 30.3 L34.1 17.2 L38.1 12.4 L44.7 10.9 L54.9 4 L61.6 10.5 L76.1 29.9 L74.5 31.3 L69.9 39.2 L70.3 41.4 L69.6 42 Z"/></svg>
+          </div>
 
           <div class="future__orbit" aria-hidden="true">
             <span class="orbit orbit--1">01 The Land</span>
             <span class="orbit orbit--2">02 Before</span>
             <span class="orbit orbit--3">03 The People</span>
             <span class="orbit orbit--4">04 The Places</span>
-            <span class="orbit orbit--5">05 Then &amp; Now</span>
-            <span class="orbit orbit--6">06 Memories</span>
-            <span class="orbit orbit--7">07 Today</span>
-            <span class="orbit orbit--8">23.82° S, 29.35° E</span>
-            <span class="orbit orbit--9">17 006 people, 2011</span>
-            <span class="orbit orbit--10">1960s to 2026</span>
+            <span class="orbit orbit--5">05 Memories</span>
+            <span class="orbit orbit--6">06 Today</span>
+            <span class="orbit orbit--7">23.82° S, 29.35° E</span>
+            <span class="orbit orbit--8">17 006 people, 2011</span>
+            <span class="orbit orbit--9">1960s to 2026</span>
           </div>
 
           <div class="future__veil" aria-hidden="true"></div>
@@ -1188,7 +700,7 @@
 
         <h3 class="archive__sub">What you’ll be able to share</h3>
         <ul class="archive__types">
-          <li>Old photographs</li><li>Family photographs</li><li>Stories</li><li>Memories</li><li>Documents</li><li>Videos</li><li>Audio recordings</li><li>Historical information</li>
+          <li>Stories</li><li>Memories</li><li>Family histories</li><li>Names and dates</li><li>Place names</li><li>Sayings and songs, written down</li><li>Historical information</li><li>Corrections</li>
         </ul>
       </div>
 
@@ -1197,13 +709,13 @@
           <span class="archive__pulse" aria-hidden="true"></span>
           <div>
             <p class="archive__status-title">Contributions open soon</p>
-            <p>Online sharing isn’t live yet. Until then, keep old photographs safe, write names and years on the back, and ask elders to tell their stories while they can.</p>
+            <p>Online sharing isn’t live yet. Until then, write down names, dates and places, and ask elders to tell their stories while they can.</p>
           </div>
         </div>
 
         <h3 class="archive__sub">How it will work</h3>
         <ol class="archive__steps">
-          <li><strong>Share</strong> a photograph, recording, document or story.</li>
+          <li><strong>Share</strong> a story, a memory or a correction, in English or Sepedi.</li>
           <li><strong>Check together.</strong> Names, dates and places are confirmed with you before anything is published.</li>
           <li><strong>Credit.</strong> With your permission, it joins the archive under your name.</li>
         </ol>
@@ -1211,7 +723,7 @@
 
       <div class="notes" id="research-notes">
         <h3 class="notes__title">Research notes</h3>
-        <p class="notes__intro">Every fact on this site links to where it came from. Anything that couldn’t be verified is marked <span class="tbd">[Historical information to be added]</span>. No public-domain or openly licensed photographs of Mmotong / Perskebult could be found online, so every photograph slot waits for the community.</p>
+        <p class="notes__intro">Every fact on this site links to where it came from. The site uses no photographs, video or audio. Every visual — the landscape, maps, place drawings, decade prints and charts — is drawn in code, so nothing here stands in for a real photo of a real person or place.</p>
         <ul class="notes__list">
           <li><a href="https://census2011.adrianfrith.com/place/974041" target="_blank" rel="noopener">Census 2011: Main Place Perskebult (974041)</a> — area, population, households, languages, sub-places and boundary. Statistics South Africa data, processed by Adrian Frith.</li>
           <li><a href="https://zeno.fm/radio/mmotong-fm/" target="_blank" rel="noopener">Mmotong FM, Zeno.FM</a> — location between Seshego and Moletjie.</li>
@@ -1241,9 +753,39 @@
     <p class="credits__quote">“Preserving the stories of Mmotong / Perskebuilt, one memory at a time.”</p>
     <p class="credits__statement">Built to remember where we come from, document where we are, and preserve the stories that deserve to be remembered.</p>
 
+    <!-- CONNECT — replace the four href values below with your real
+         profile URLs. Leave a link out entirely (delete its <li>) if you
+         don't want to show it. -->
+    <ul class="credits__social" aria-label="Connect with Didintle Moratamotho">
+      <li>
+        <a href="https://www.instagram.com/didintle.asf/?__pwa=1" target="_blank" rel="noopener" data-cursor="Open">
+          <svg class="credits__icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.15" cy="6.85" r=".9" fill="currentColor" stroke="none"/></svg>
+          <span>Instagram</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://didimoratamotho.fyi/" target="_blank" rel="noopener" data-cursor="Open">
+          <svg class="credits__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><ellipse cx="12" cy="12" rx="3.6" ry="8.5"/><path d="M3.7 9.5h16.6M3.7 14.5h16.6"/></svg>
+          <span>Website</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://www.linkedin.com/in/didintle-moratamotho-695196374/" target="_blank" rel="noopener" data-cursor="Open">
+          <svg class="credits__icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="7.2" cy="7.2" r="1.35" fill="currentColor" stroke="none"/><path d="M7.2 10.6v9.4"/><path d="M12.1 20v-5.6c0-2.6 3.9-2.8 3.9 0V20"/><path d="M12.1 10.6V20"/></svg>
+          <span>LinkedIn</span>
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/Didintle-code09" target="_blank" rel="noopener" data-cursor="Open">
+          <svg class="credits__icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.2c-4.9 0-8.8 3.9-8.8 8.8 0 3.9 2.5 7.2 6.1 8.4.4.1.6-.2.6-.4v-1.7c-2.5.5-3-1.1-3-1.1-.4-1-1-1.3-1-1.3-.8-.6.1-.5.1-.5.9.1 1.4.9 1.4.9.8 1.4 2.2 1 2.7.8.1-.6.3-1 .6-1.3-2-.2-4.1-1-4.1-4.4 0-1 .3-1.7.9-2.4-.1-.2-.4-1.2.1-2.5 0 0 .8-.2 2.5 1a8.6 8.6 0 0 1 4.6 0c1.7-1.2 2.5-1 2.5-1 .5 1.3.2 2.3.1 2.5.6.7.9 1.5.9 2.4 0 3.4-2.1 4.2-4.1 4.4.3.3.6.8.6 1.7v2.5c0 .2.2.5.6.4 3.6-1.2 6.1-4.5 6.1-8.4 0-4.9-3.9-8.8-8.8-8.8Z"/></svg>
+          <span>GitHub</span>
+        </a>
+      </li>
+    </ul>
+
     <dl class="credits__roll">
       <div><dt>Designed &amp; Developed by</dt><dd>Didintle Moratamotho</dd></div>
-      <div><dt>Photographs</dt><dd>To come from the community</dd></div>
+      <div><dt>Company</dt><dd><a href="https://moratamothodevs.co.za" target="_blank" rel="noopener" data-cursor="Open">moratamothodevs.co.za</a></dd></div>
       <div><dt>Sources</dt><dd><a href="#research-notes">Research notes</a></dd></div>
     </dl>
 

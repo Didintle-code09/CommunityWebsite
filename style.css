@@ -9,17 +9,17 @@
    04 Loader
    05 Progress, chapter indicator, cursor
    06 Navigation + mobile menu
-   07 The plate system (photographs and their placeholders)
+   07 Credits on drawings + paper grain
    08 Hero
    09 Chapter openers
    10 Chapter 01 — The Land (sticky frame) + the name scene
-   11 Chapter 02 — Before (staged uncover, story, timeline)
-   12 Chapter 03 — The People (census, portraits)
-   13 Chapter 04 — Places
-   14 Chapter 05 — Then & Now
-   15 Chapter 06 — Memories
-   16 Chapter 07 — Today (reel)
-   17 Chapter 08 — The Future
+   11 Chapter 02 — Before (dates, timeline prints)
+   12 Chapter 03 — The People (census, dot charts)
+   13 Chapter 04 — Places (line drawings)
+   14 Name ticker
+   15 Chapter 05 — Memories
+   16 Chapter 06 — Today
+   17 Chapter 07 — The Future
    18 Archive + research notes
    19 Credits
    20 Maps
@@ -44,6 +44,9 @@
   --green: #246B3D;
   --mint: #E8F1EA;
   --line: #DDE6DF;
+  /* Perske: peach. The one warm colour, used sparingly. */
+  --peach: #EE9468;
+  --peach-soft: #FCE6D8;
 
   --ink-70: rgba(16, 20, 16, .70);
   --ink-45: rgba(16, 20, 16, .45);
@@ -502,105 +505,29 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .menu__word { font-family: var(--serif); font-size: clamp(2rem, 9vw, 3rem); }
 .menu__foot { font-size: .78rem; color: var(--ink-45); margin: 2rem 0 0; }
 
-/* ========================= 07 THE PLATE SYSTEM =========================
-   Every photograph sits in a .plate. If the image file is missing, JS adds
-   .is-empty and the plate shows what photograph the archive is looking for
-   instead of a broken image. */
-.plate {
-  position: relative;
-  margin: 0;
-  overflow: hidden;
-  background: var(--off);
-  isolation: isolate;
-}
-.plate__img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: opacity .8s var(--ease);
-}
-.plate.is-empty .plate__img { display: none; }
-
-.plate__wanted {
-  position: absolute;
-  inset: 0;
-  display: none;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: .4rem;
-  padding: clamp(1.1rem, 3vw, 2.2rem);
-  background:
-    repeating-linear-gradient(135deg, transparent 0 15px, rgba(36, 107, 61, .045) 15px 16px),
-    var(--off);
-  border: 1px solid var(--line);
-}
-.plate.is-empty .plate__wanted { display: flex; }
-.plate__wanted--right { justify-content: flex-start; align-items: flex-end; text-align: right; }
-
-.plate__kicker {
-  margin: 0;
-  font-size: .7rem;
-  letter-spacing: .1em;
-  color: var(--green);
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-}
-.plate__kicker::before {
-  content: "";
-  width: .38rem; height: .38rem;
-  border-radius: 50%;
-  border: 1px solid var(--green);
-}
-.plate__wanted--right .plate__kicker { flex-direction: row-reverse; }
-
-.plate__desc {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(1.05rem, 1.8vw, 1.5rem);
-  line-height: 1.24;
-  color: var(--ink-70);
-  max-width: 26ch;
-}
-.plate__file {
-  margin: 0;
-  font-size: .68rem;
-  color: var(--ink-25);
-  letter-spacing: .03em;
-}
-
-.plate__credit {
+/* ================= 07 CREDITS ON DRAWINGS + PAPER GRAIN ================= */
+.credit {
   position: absolute;
   left: clamp(.7rem, 1.6vw, 1.2rem);
   bottom: clamp(.5rem, 1.4vw, 1rem);
   z-index: 5;
 }
-.plate__credit--top { bottom: auto; top: clamp(.5rem, 1.4vw, 1rem); }
-.plate__credit .source > summary {
+.credit .source > summary {
   background: rgba(255, 255, 255, .88);
   padding: .28rem .6rem;
   border-radius: 999px;
 }
 
-/* Hover zoom: only where a photograph actually exists. */
-.plate:not(.is-empty) .plate__img { transition: transform 1.1s var(--ease), opacity .8s var(--ease); }
-.plate:not(.is-empty):hover .plate__img { transform: scale(1.035); }
-
-/* Aged treatment for historical prints. */
-.plate--aged .plate__img { filter: sepia(.32) contrast(1.03) saturate(.75); }
-
-/* Some plates sit behind a caption supplied by the surrounding scene
-   (portrait name/story, place name/line, the closing statement). When
-   that plate is empty, its own "photograph wanted" text would sit right
-   underneath the scene's caption and the two would overlap. In those
-   spots keep the empty pattern as a backdrop but drop the wanted-card's
-   own text — the scene copy already says what the photo is of, and the
-   full description still lives in the HTML comments and file name. */
-.portrait__frame .plate__wanted > *,
-.place__media .plate__wanted > *,
-.future__media .plate__wanted > *,
-.hero__intro .plate__wanted > * {
-  display: none;
+/* A whisper of paper grain over everything, drawn with an SVG noise
+   filter rather than an image file. */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 800;
+  pointer-events: none;
+  opacity: .06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ============================== 08 HERO ============================== */
@@ -619,14 +546,12 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   padding: 5.5rem var(--gut) 1.5rem;
 }
 
-/* The photograph is revealed by an arch-shaped mask that opens with scroll,
-   while the picture itself pulls back from a heavy zoom. */
+/* A drawn landscape is revealed by an arch-shaped mask that opens with
+   scroll: ridges (bult) settle in depth while a peach sun rises. */
 .hero__media {
   position: absolute;
   inset: 0;
   z-index: 0;
-  background: none;
-  overflow: visible;
   display: grid;
   place-items: center;
 }
@@ -636,21 +561,42 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   height: calc(34% + 52% * var(--p));
   overflow: hidden;
   border-radius: calc(50vmin * (1 - var(--p)) * .9) calc(50vmin * (1 - var(--p)) * .9) 2px 2px;
-  transition: none;
 }
-.hero__intro .plate__wanted { border: none; }
-.hero__img {
+.scape {
   position: absolute;
   inset: 0;
-  transform: scale(calc(1.55 - .4 * var(--p))) translateY(calc(2% - 5% * var(--p)));
-  filter: blur(calc(6px * (1 - var(--p))));
+  width: 100%;
+  height: 100%;
+  transform: scale(calc(1.25 - .25 * var(--p)));
+  transform-origin: 50% 100%;
 }
-.hero__media::after {   /* white veil that thins as the image opens */
+.scape__sun { transform: translateY(calc(140px - 260px * var(--p))); }
+.scape__halo {
+  fill: var(--peach);
+  opacity: .14;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: halo 6s var(--ease) infinite;
+}
+@keyframes halo { 50% { transform: scale(1.08); opacity: .22; } }
+.scape__ridge--1 { fill: #CFE2D4; transform: translateY(calc(30px * var(--p))); }
+.scape__ridge--2 { fill: #9CC3A6; transform: translateY(calc(18px * var(--p))); }
+.scape__ridge--3 { fill: var(--green); transform: translateY(calc(8px * var(--p))); }
+.scape__ridge--4 { fill: var(--deep); }
+.scape__contours path {
+  fill: none;
+  stroke: var(--mint);
+  stroke-width: 2;
+  opacity: .5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - var(--p));
+}
+.hero__media::after {   /* white veil that thins as the arch opens */
   content: "";
   position: absolute;
   inset: 0;
   background: var(--white);
-  opacity: calc(.62 - .62 * var(--p));
+  opacity: calc(.5 - .5 * var(--p));
   pointer-events: none;
   z-index: 2;
 }
@@ -686,7 +632,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .hero__sub {
   position: absolute;
   left: 50%;
-  top: calc(50% + clamp(3.2rem, 8vw, 7rem));
+  top: calc(50% + clamp(7.5rem, 17vw, 14rem));
   transform: translateX(-50%);
   z-index: 3;
   margin: 0;
@@ -741,7 +687,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .hero__meta {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem clamp(1rem, 3vw, 2.5rem);
   margin: 0 0 .4rem;
   opacity: calc(-.4 + 2 * var(--p));
@@ -860,7 +806,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   background: var(--white);
   padding: clamp(.8rem, 2vw, 1.6rem);
 }
-.land__layer .plate__img { position: absolute; inset: 0; }
 
 .land__tag {
   position: absolute;
@@ -957,6 +902,9 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   transform: translateY(calc(.6rem * (1 - var(--p))));
 }
 .name__def em { color: var(--green); font-style: normal; }
+/* Perske is the peach half of the name, so it wears the peach. */
+.name__part--a .name__letters { color: var(--peach); }
+.name__part--a .name__def em { color: var(--peach); }
 
 .name__sotho {
   font-family: var(--serif);
@@ -987,78 +935,46 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .name__variants { font-size: .82rem; color: var(--ink-45); margin-bottom: .3rem; }
 
 /* ==================== 11 CHAPTER 02 — BEFORE ==================== */
-.uncover { height: 400vh; position: relative; }
-.uncover__pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  align-items: center;
-  gap: clamp(1.5rem, 5vw, 5rem);
-  padding: 5.5rem var(--gut) 3rem;
-}
-.uncover__plate { position: relative; margin: 0; justify-self: center; width: min(100%, 54rem); }
-
-/* --u is a stepped value (0.2 / 0.5 / 0.8 / 1) written by script.js, so the
-   photograph opens in four deliberate moves rather than continuously. */
-.uncover__reveal {
-  aspect-ratio: 10 / 7;
-  clip-path: inset(0 calc((1 - var(--u, .2)) * 100%) 0 0);
-  transition: clip-path 1s var(--swift);
-}
-.uncover__reveal .plate__img { filter: sepia(.3) contrast(1.04) saturate(.7); }
-
-.uncover__corner {
-  position: absolute;
-  width: 1.4rem; height: 1.4rem;
-  border: 1px solid var(--green);
-  opacity: .8;
-}
-.uncover__corner--tl { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
-.uncover__corner--tr { top: -1px; right: -1px; border-left: 0; border-bottom: 0; }
-.uncover__corner--bl { bottom: -1px; left: -1px; border-right: 0; border-top: 0; }
-.uncover__corner--br { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
-
-.uncover__caption {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 1rem;
-  position: relative;
-}
-.uncover__facts { display: flex; flex-wrap: wrap; gap: 1.4rem; margin: 0; }
-.uncover__facts dt { font-size: .66rem; letter-spacing: .1em; color: var(--green); margin-bottom: .2rem; }
-.uncover__facts dd { margin: 0; font-size: .8rem; color: var(--ink-45); }
-
-.uncover__readout { align-self: center; text-align: right; }
-.uncover__pct-line {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(3rem, 9vw, 7rem);
-  line-height: 1;
-  font-variant-numeric: tabular-nums;
-}
-.uncover__unit { color: var(--green); font-size: .4em; vertical-align: super; }
-.uncover__label { margin: .3rem 0 1.4rem; font-size: .74rem; color: var(--ink-45); }
-.uncover__stages { display: grid; gap: .4rem; font-size: .72rem; color: var(--ink-25); }
-.uncover__stages li { transition: color .4s var(--ease); }
-.uncover__stages li::after { content: "%"; }
-.uncover__stages li.is-done { color: var(--green); }
-
-/* Story beside the photograph */
+/* Story: the Lebowa years as a column of dates beside the text. Each
+   outlined year fills with ink in turn once the list scrolls in. */
 .story {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 5rem);
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 6vw, 6rem);
   align-items: center;
   padding: var(--stack) var(--gut);
 }
-.story__plate { aspect-ratio: 4 / 3; }
 .story__title { font-size: clamp(1.7rem, 3.6vw, 2.8rem); margin-bottom: 1.2rem; }
 .story__gap { color: var(--ink-70); }
+
+.years { border-top: 1px solid var(--line); }
+.years li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: baseline;
+  gap: .4rem clamp(1rem, 3vw, 2rem);
+  padding: clamp(.7rem, 1.6vw, 1.1rem) 0;
+  border-bottom: 1px solid var(--line);
+}
+.years__num {
+  font-family: var(--serif);
+  font-size: clamp(2.6rem, 7vw, 5.6rem);
+  line-height: 1;
+  padding-bottom: .12em;
+  letter-spacing: -.03em;
+  font-variant-numeric: tabular-nums;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--green);
+  background: linear-gradient(90deg, var(--deep) 50%, transparent 50%) 100% 0 / 200% 100% no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  transition: background-position 1.1s var(--swift);
+  transition-delay: calc(.2s + var(--i, 0) * .22s);
+}
+.years.is-in .years__num { background-position: 0 0; }
+.years__what { font-size: .88rem; color: var(--ink-70); max-width: 24ch; }
+
+.clue { text-align: left; }
 
 .clue {
   margin-top: 2rem;
@@ -1160,24 +1076,144 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   gap: clamp(1.5rem, 4vw, 3.5rem);
   align-items: start;
 }
-.decade__media {
+/* Each decade gets a small "print" drawn entirely in CSS, in the look of
+   the photographs of its time. It's a print of the year itself, so it
+   never pretends to be a real photograph. */
+.decade__art {
+  position: relative;
   aspect-ratio: 4 / 5;
+  overflow: hidden;
+  display: grid;
+  align-content: end;
+  padding: 1.1rem;
+  isolation: isolate;
   opacity: 0;
-  transform: translateY(2rem) rotate(-1deg);
-  transition: opacity 1s var(--ease), transform 1s var(--swift), filter 1s var(--ease);
+  transform: translateY(2rem) rotate(-2deg);
+  transition: opacity 1s var(--ease), transform 1.1s var(--swift);
 }
-.decade.is-in .decade__media { opacity: 1; transform: none; }
+.decade:nth-child(even) .decade__art { transform: translateY(2rem) rotate(2deg); }
+.decade.is-in .decade__art { opacity: 1; transform: rotate(-1deg); }
+.decade.is-in:nth-child(even) .decade__art { transform: rotate(1deg); }
+.decade.is-in .decade__art:hover { transform: rotate(0) scale(1.03); }
 
-/* Each decade wears the photographic medium of its time. */
-.medium--silver .plate__img { filter: grayscale(1) contrast(1.12); }
-.medium--silver { box-shadow: 0 1px 0 var(--line); }
-.medium--faded .plate__img { filter: sepia(.45) saturate(.7) contrast(.95) brightness(1.05); }
-.medium--instant { border: 10px solid var(--white); box-shadow: 0 6px 22px rgba(16, 20, 16, .1); }
-.medium--instant .plate__img { filter: sepia(.16) saturate(1.15) contrast(.96); }
-.medium--flash .plate__img { filter: saturate(1.1) contrast(1.06) brightness(1.04); }
-.medium--digital .plate__img { filter: saturate(.92) contrast(1.02); }
-.medium--phone .plate__img { filter: saturate(1.12) contrast(1.04); }
-.medium--now .plate__img { filter: none; }
+.art__year {
+  position: relative;
+  z-index: 2;
+  font-family: var(--serif);
+  font-size: clamp(3rem, 6vw, 4.6rem);
+  line-height: .9;
+  letter-spacing: -.03em;
+}
+.art__note {
+  position: relative;
+  z-index: 2;
+  margin-top: .5rem;
+  font-size: .64rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.art::before, .art::after { content: ""; position: absolute; inset: 0; pointer-events: none; }
+
+/* 1960s — silver print: halftone dots, greys, a white border */
+.art--silver {
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, .18) 0 1.2px, transparent 1.6px) 0 0 / 6px 6px,
+    radial-gradient(ellipse at 40% 30%, #8A8F8B, #2B2E2C 75%);
+  color: #F2F2EE;
+  border: 10px solid #F4F2EC;
+  box-shadow: 0 1px 0 var(--line), 0 10px 24px rgba(16, 20, 16, .12);
+}
+.art--silver::after { background: radial-gradient(ellipse at center, transparent 50%, rgba(0, 0, 0, .4)); }
+
+/* 1970s — faded colour film: warm, washed out, rounded corners */
+.art--faded {
+  background:
+    linear-gradient(160deg, rgba(255, 238, 200, .55), transparent 60%),
+    linear-gradient(200deg, #E9B98A 0%, #C98E62 45%, #7E8C6A 100%);
+  color: #FFF4E4;
+  border-radius: 10px;
+  filter: saturate(.75) contrast(.92) brightness(1.04);
+  box-shadow: 0 10px 24px rgba(120, 70, 30, .16);
+}
+.art--faded .art__year { font-style: italic; opacity: .9; }
+.art--faded::after { background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .05) 0 2px, transparent 2px 4px); }
+
+/* 1980s — instant: a thick white strip with a handwritten year */
+.art--instant {
+  background: #FBFAF6;
+  padding: 10px 10px 3.6rem;
+  box-shadow: 0 8px 26px rgba(16, 20, 16, .14);
+}
+.art--instant::before {
+  inset: 10px 10px 3.6rem;
+  background: linear-gradient(180deg, #F3B48D 0%, var(--peach) 38%, #3E7A5A 39%, var(--deep) 100%);
+  filter: saturate(1.15) sepia(.12);
+}
+.art--instant .art__year {
+  position: absolute;
+  left: 0; right: 0; bottom: .7rem;
+  text-align: center;
+  font-family: var(--hand);
+  font-size: 2.1rem;
+  letter-spacing: 0;
+  color: var(--ink);
+}
+.art--instant .art__note { position: absolute; top: 1.3rem; left: 1.4rem; color: #FFF5EC; }
+
+/* 1990s — flash: a dark room, a hot white flash, an orange date stamp */
+.art--flash {
+  background:
+    radial-gradient(circle at 34% 34%, rgba(255, 255, 255, .95) 0 6%, rgba(255, 240, 220, .5) 18%, transparent 48%),
+    linear-gradient(170deg, #31402F, #101410);
+  color: #FFF;
+}
+.art--flash .art__year { margin-bottom: 1.8rem; }
+.art--flash .art__note {
+  position: absolute;
+  right: 1rem; bottom: 1rem;
+  font-family: "Courier New", monospace;
+  font-size: .95rem;
+  letter-spacing: .08em;
+  text-transform: none;
+  color: #FF8A3D;
+  text-shadow: 0 0 6px rgba(255, 120, 40, .8);
+}
+
+/* 2000s — early digital: visible pixels, a cool cast, monospace */
+.art--digital {
+  background:
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 8px),
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .07) 0 1px, transparent 1px 8px),
+    conic-gradient(from 200deg at 70% 30%, #5D8BA8, #9DB8A4, #D8D2B0, #5D8BA8);
+  color: #FFF;
+}
+.art--digital .art__year { font-family: "Courier New", monospace; font-weight: 700; letter-spacing: -.06em; text-shadow: 3px 3px 0 rgba(0, 0, 0, .25); }
+.art--digital::after { background: linear-gradient(transparent 50%, rgba(0, 0, 0, .2)); }
+
+/* 2010s — phone: a rounded screen, saturated, with a notch */
+.art--phone {
+  background: linear-gradient(155deg, #F7A27A 0%, var(--peach) 30%, #2F8752 70%, var(--deep) 100%);
+  color: #FFF;
+  border-radius: 1.4rem;
+  border: 6px solid var(--ink);
+}
+.art--phone::before {
+  inset: .5rem auto auto 50%;
+  width: 3.2rem; height: .5rem;
+  margin-left: -1.6rem;
+  border-radius: 1rem;
+  background: var(--ink);
+}
+
+/* Today — full colour, slowly moving */
+.art--now {
+  background: linear-gradient(120deg, var(--peach), #F8C7A8, var(--mint), var(--green), var(--deep));
+  background-size: 300% 300%;
+  animation: now-drift 12s ease-in-out infinite alternate;
+  color: #FFF;
+}
+.art--now .art__year { text-shadow: 0 2px 20px rgba(16, 20, 16, .25); }
+@keyframes now-drift { to { background-position: 100% 100%; } }
 
 .decade__title { font-size: clamp(1.3rem, 2.4vw, 1.8rem); margin-bottom: .35rem; }
 .decade__medium { font-size: .72rem; letter-spacing: .06em; color: var(--green); margin-bottom: 1.4rem; }
@@ -1198,6 +1234,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   padding: var(--stack) var(--gut);
   text-align: center;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: center;
   gap: 1rem;
 }
@@ -1219,74 +1256,50 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .census__label { font-size: .78rem; color: var(--ink-45); max-width: 14ch; }
 .census__note { font-family: var(--serif); font-style: italic; font-size: clamp(1.05rem, 2.2vw, 1.4rem); color: var(--ink); }
+
+.people__note {
+  max-width: 34rem;
+  margin: 0 auto;
+  padding: 0 var(--gut) calc(var(--stack) * .7);
+  text-align: center;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.2rem, 2.8vw, 1.7rem);
+  color: var(--ink-70);
+}
 .census__src { text-align: center; }
 
-.portrait { height: 320vh; position: relative; }
-.portrait__pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
+/* Dot charts: built by script.js; each dot pops in on its own delay. */
+.dots-figure { width: 100%; margin: 1.4rem 0 .6rem; display: grid; justify-items: center; gap: 1rem; }
+.dots {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: clamp(2rem, 6vw, 6rem);
-  padding: 5.5rem var(--gut) 3rem;
+  grid-template-columns: repeat(17, 1fr);
+  gap: clamp(.3rem, .9vw, .6rem);
+  width: 100%;
+  max-width: 36rem;
 }
-.portrait--flip .portrait__frame { order: 2; }
-
-.portrait__frame {
-  position: relative;
-  height: min(74svh, 46rem);
-  /* The portrait opens from a slot rather than fading in. */
-  clip-path: inset(calc(46% * (1 - min(var(--p) * 3.2, 1))) 0);
+.dots i {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--line);
+  transform: scale(0);
+  transition: transform .5s var(--swift), background .3s var(--ease);
+  transition-delay: calc(var(--i, 0) * 6ms);
 }
-.portrait__inner { position: absolute; inset: 0; }
-.portrait__inner .plate__img {
-  position: absolute;
-  inset: 0;
-  transform: scale(calc(1.16 - .12 * var(--p)));
-}
-
-.subtitle {
-  position: absolute;
-  left: 0; right: 0;
-  bottom: clamp(1rem, 3vw, 2rem);
-  z-index: 6;
-  margin: 0;
-  padding: 0 clamp(1rem, 3vw, 2rem);
-  display: grid;
-  justify-items: center;
-  gap: .4rem;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(.8rem);
-  transition: opacity .6s var(--ease), transform .6s var(--ease);
-}
-.subtitle.is-on { opacity: 1; transform: none; }
-.subtitle__text {
-  background: rgba(255, 255, 255, .92);
-  padding: .5rem .9rem;
-  font-family: var(--serif);
-  font-size: clamp(1rem, 2.1vw, 1.5rem);
-  line-height: 1.25;
-  color: var(--ink);
-  box-shadow: 0 2px 16px rgba(16, 20, 16, .08);
-}
-.subtitle__tag { font-size: .64rem; letter-spacing: .08em; color: var(--ink-45); background: rgba(255,255,255,.85); padding: .1rem .4rem; }
-
-.portrait__role { font-size: .72rem; letter-spacing: .12em; color: var(--green); margin-bottom: .8rem; }
-.portrait__name { font-size: clamp(2rem, 5.5vw, 4.2rem); margin-bottom: .6rem; overflow: hidden; }
-.portrait__name span { display: block; }
-.portrait__context { font-size: .82rem; color: var(--ink-45); margin-bottom: 1.6rem; }
-.portrait__story p { font-size: clamp(1rem, 1.9vw, 1.2rem); color: var(--ink-70); margin-bottom: .6em; }
+.dots i.is-fill { background: var(--green); }
+.dots i.is-fill:nth-child(7n+3) { background: var(--deep); }
+.dots.is-in i { transform: scale(1); }
+.dots.is-in i:hover { transform: scale(1.6); background: var(--peach); transition-delay: 0s; }
+.dots--grid { grid-template-columns: repeat(20, 1fr); max-width: 28rem; margin: 1.6rem 0 .8rem; }
+.dots--grid i { border-radius: 2px; transition-delay: calc(var(--i, 0) * 12ms); }
+.dots--grid i.is-fill, .dots--grid i.is-fill:nth-child(7n+3) { background: var(--peach); }
+.dots__key { display: inline-flex; align-items: center; gap: .55rem; font-size: .8rem; color: var(--ink-45); margin: 0; }
+.dots__swatch { width: .6rem; height: .6rem; border-radius: 50%; background: var(--green); flex: none; }
+.dots__swatch--peach { border-radius: 2px; background: var(--peach); }
 
 /* Line-by-line reveals triggered by scroll position (.is-on from JS) */
 .reveal-fade { opacity: 0; transform: translateY(.8rem); transition: opacity .6s var(--ease), transform .6s var(--ease); }
-.reveal-rise span { display: block; transform: translateY(110%); transition: transform .8s var(--swift); }
-.reveal-wipe { clip-path: inset(0 0 110% 0); transition: clip-path .7s var(--swift); }
 .reveal-fade.is-on { opacity: 1; transform: none; }
-.reveal-rise.is-on span { transform: none; }
-.reveal-wipe.is-on { clip-path: inset(0 0 -10% 0); }
 
 .roles {
   padding: var(--stack) var(--gut);
@@ -1322,22 +1335,60 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   align-items: end;
   padding: 5.5rem var(--gut) clamp(2rem, 6vh, 4rem);
 }
-.place__media { position: absolute; inset: 0; background: var(--off); }
-.place__media::after {   /* keeps the caption legible over a photograph */
+/* Each place is a line drawing that sketches itself in as you scroll,
+   over a huge outlined word that slides the other way. */
+.place__art {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at var(--focus, 50% 50%), var(--peach-soft), transparent 62%), var(--off);
+}
+.place:nth-of-type(even) .place__art {
+  background: radial-gradient(ellipse at var(--focus, 50% 50%), var(--mint), transparent 62%), var(--off);
+}
+.place__art::after {   /* keeps the caption legible over the drawing */
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(255, 255, 255, .94) 0%, rgba(255, 255, 255, .55) 34%, rgba(255, 255, 255, .1) 62%);
+  background: linear-gradient(to top, rgba(247, 249, 247, .96) 0%, rgba(247, 249, 247, .6) 30%, transparent 55%);
   z-index: 2;
+}
+.place__ghost {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  margin: 0;
+  max-width: none;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-size: clamp(8rem, 30vw, 28rem);
+  line-height: .8;
+  letter-spacing: -.04em;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--ink-25);
+  opacity: .6;
+  transform: translate3d(calc(20vw - 40vw * var(--p)), 0, 0);
 }
 /* The camera pushes toward the detail named by data-focus. */
 .place__zoom {
   position: absolute;
-  inset: 0;
-  transform: scale(calc(1.02 + .34 * var(--p)));
+  inset: 10% 4% 28% 36%;
+  transform: scale(calc(.92 + .22 * var(--p)));
   transform-origin: var(--focus, 50% 50%);
 }
-.place__zoom .plate__img { position: absolute; inset: 0; }
+.sketch { width: 100%; height: 100%; overflow: visible; }
+.sketch path, .sketch circle {
+  fill: none;
+  stroke: var(--deep);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - min(var(--p) * 2.4, 1));
+}
+.sketch path:nth-child(n+4) { stroke: var(--green); }
+.sketch circle { stroke: var(--peach); }
 
 .place__caption { position: relative; z-index: 4; }
 .place__kind { font-size: .7rem; letter-spacing: .12em; color: var(--green); margin-bottom: .6rem; }
@@ -1384,111 +1435,42 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .index__note { font-size: .85rem; color: var(--ink-70); margin-bottom: .5rem; }
 .index__link { font-size: .7rem; color: var(--ink-45); letter-spacing: .06em; }
 
-/* =================== 14 CHAPTER 05 — THEN & NOW =================== */
-.compare { height: 340vh; position: relative; }
-.compare__pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  display: grid;
-  grid-template-rows: 1fr auto;
-  gap: 1rem;
-  align-content: center;
-  padding: 5.5rem var(--gut) clamp(1.5rem, 4vh, 3rem);
-}
-.compare__frame {
-  position: relative;
-  width: min(100%, 68rem);
-  justify-self: center;
-  height: min(66svh, 40rem);
+/* =========================== 14 NAME TICKER =========================== */
+.ticker {
+  padding: clamp(2rem, 6vw, 4.5rem) 0;
   overflow: hidden;
-  background: var(--off);
-  border: 1px solid var(--line);
+  background: var(--deep);
+  color: var(--mint);
 }
-.compare__img { position: absolute; inset: 0; margin: 0; }
-.compare__img .plate__img { position: absolute; inset: 0; }
-/* --c (0–100) comes from scroll or from the handle. */
-.compare__img--then {
-  clip-path: inset(0 calc(100% - var(--c, 92) * 1%) 0 0);
-  transform: scale(calc(1.06 - .06 * (var(--c, 92) / 100)));
-}
-.compare__img--now {
-  transform: scale(calc(1 + .05 * (var(--c, 92) / 100)));
-}
-
-.compare__label {
-  position: absolute;
-  top: 1rem;
-  z-index: 5;
-  margin: 0;
-  padding: .35rem .8rem;
-  background: rgba(255, 255, 255, .9);
-  font-size: .74rem;
-  letter-spacing: .1em;
-  color: var(--deep);
-  transition: opacity .4s var(--ease);
-}
-.compare__label span { color: var(--ink-25); }
-.compare__label--then { left: 1rem; opacity: calc(var(--c, 92) / 100); }
-.compare__label--now { right: 1rem; opacity: calc(1.1 - var(--c, 92) / 100); }
-
-.compare__range {
-  position: absolute;
-  inset: auto 0 0 0;
-  z-index: 8;
-  width: 100%;
-  height: 3rem;
-  margin: 0;
-  opacity: 0;
-  cursor: ew-resize;
-}
-.compare__handle {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: calc(var(--c, 92) * 1%);
-  z-index: 7;
-  width: 0;
-  pointer-events: none;
-}
-.compare__bar { position: absolute; top: 0; bottom: 0; left: -1px; width: 2px; background: var(--white); box-shadow: 0 0 0 1px rgba(16,20,16,.08); }
-.compare__hit {
-  position: absolute;
-  top: 50%; left: 0;
-  transform: translate(-50%, -50%);
-  width: 3rem; height: 3rem;
-  border-radius: 50%;
-  background: var(--white);
-  border: 1px solid var(--line);
-  display: grid;
-  place-items: center;
-  box-shadow: 0 6px 20px rgba(16, 20, 16, .12);
-}
-.compare__knob { width: 1.4rem; height: 1px; background: var(--green); position: relative; }
-.compare__knob::before, .compare__knob::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  width: .42rem; height: .42rem;
-  border-top: 1px solid var(--green);
-  border-left: 1px solid var(--green);
-}
-.compare__knob::before { left: -.05rem; transform: translateY(-50%) rotate(-45deg); }
-.compare__knob::after { right: -.05rem; transform: translateY(-50%) rotate(135deg); }
-.compare__range:focus-visible + .compare__handle .compare__hit { outline: 2px solid var(--green); outline-offset: 3px; }
-
-.compare__foot {
-  position: relative;
-  width: min(100%, 68rem);
-  justify-self: center;
+.ticker__row {
+  width: max-content;
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 1rem;
+  margin: 0;
+  max-width: none;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-size: clamp(2.4rem, 8vw, 6.5rem);
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  transform: translate3d(calc(-40% * var(--p)), 0, 0);
 }
-.compare__foot p { font-size: .85rem; color: var(--ink-70); max-width: 44ch; }
+.ticker__row span::after {
+  content: "\2726";
+  display: inline-block;
+  margin: 0 .5em;
+  font-size: .35em;
+  vertical-align: middle;
+  color: var(--peach);
+  -webkit-text-stroke: 0;
+}
+.ticker__row--b {
+  font-style: italic;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 241, 234, .6);
+  transform: translate3d(calc(-45% + 40% * var(--p)), 0, 0);
+}
 
-/* ===================== 15 CHAPTER 06 — MEMORIES ===================== */
+/* ===================== 15 CHAPTER 05 — MEMORIES ===================== */
 .memories {
   position: relative;
   display: grid;
@@ -1501,7 +1483,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 /* --y is the parallax offset written by script.js (desktop only). */
 .fragment { transform: translate3d(0, var(--y, 0px), 0); }
 
-.fragment--photo { grid-column: 1 / span 5; aspect-ratio: 4 / 5; }
 .fragment--quote {
   grid-column: 7 / span 6;
   margin: 0;
@@ -1521,7 +1502,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   font-family: var(--serif);
   font-size: clamp(4rem, 11vw, 9rem);
   line-height: 1;
-  color: var(--mint);
+  color: var(--peach-soft);
 }
 .fragment--quote footer { display: flex; flex-wrap: wrap; gap: .5rem .8rem; align-items: center; }
 .fragment__tag {
@@ -1548,54 +1529,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .fragment--note-b { grid-column: 2 / span 4; transform: translate3d(0, var(--y, 0px), 0) rotate(1.8deg); }
 
-.audio {
-  grid-column: 7 / span 5;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  padding: 1.2rem;
-  border: 1px solid var(--line);
-  background: var(--white);
-}
-.audio__btn {
-  flex: none;
-  width: 3rem; height: 3rem;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--off);
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: background .3s var(--ease), border-color .3s var(--ease);
-}
-.audio__btn:disabled { cursor: not-allowed; opacity: .55; }
-.audio__btn:not(:disabled):hover { background: var(--mint); border-color: var(--green); }
-.audio__icon {
-  width: 0; height: 0;
-  border-left: .62rem solid var(--green);
-  border-top: .42rem solid transparent;
-  border-bottom: .42rem solid transparent;
-  margin-left: .18rem;
-}
-.audio.is-playing .audio__icon {
-  width: .62rem; height: .8rem;
-  border: 0;
-  margin-left: 0;
-  background: linear-gradient(90deg, var(--green) 0 38%, transparent 38% 62%, var(--green) 62% 100%);
-}
-.audio__body { flex: 1; min-width: 0; }
-.audio__title { font-size: .74rem; letter-spacing: .08em; color: var(--green); margin-bottom: .5rem; }
-.audio__wave {
-  height: 1.6rem;
-  background-image: repeating-linear-gradient(90deg, var(--line) 0 2px, transparent 2px 7px);
-  -webkit-mask-image: linear-gradient(90deg, #000 0 65%, transparent 100%);
-  mask-image: linear-gradient(90deg, #000 0 65%, transparent 100%);
-  margin-bottom: .5rem;
-}
-.audio.is-ready .audio__wave { background-image: repeating-linear-gradient(90deg, var(--green) 0 2px, transparent 2px 7px); opacity: .5; }
-.audio__status { font-size: .78rem; color: var(--ink-45); margin: 0; }
-
-/* ====================== 16 CHAPTER 07 — TODAY ====================== */
+/* ====================== 16 CHAPTER 06 — TODAY ====================== */
 .young {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -1608,47 +1542,6 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .young__title { font-size: clamp(1.5rem, 3.4vw, 2.4rem); margin-bottom: .8rem; }
 .young__text p { color: var(--ink-70); }
 
-.reel { height: 340vh; position: relative; }
-.reel__pin {
-  position: sticky;
-  top: 0;
-  height: 100svh;
-  overflow: hidden;
-  display: grid;
-  align-content: center;
-  gap: 1.2rem;
-  padding: 5.5rem 0 3rem;
-}
-.reel__year {
-  margin: 0 var(--gut);
-  font-family: var(--serif);
-  font-size: clamp(2.4rem, 8vw, 6rem);
-  line-height: 1;
-  letter-spacing: -.03em;
-  color: var(--mint);
-  font-variant-numeric: tabular-nums;
-}
-.reel__hint { margin: 0 var(--gut); font-size: .78rem; color: var(--ink-45); }
-
-.reel__track {
-  display: flex;
-  gap: clamp(1rem, 2.5vw, 2rem);
-  padding: 0 var(--gut);
-  /* --rx is the horizontal travel in px, written by script.js from --p. */
-  transform: translate3d(calc(var(--rx, 0px) * -1), 0, 0);
-  will-change: transform;
-}
-.reel__card { flex: none; width: clamp(13rem, 24vw, 21rem); }
-.reel__card .plate { aspect-ratio: 4 / 5; }
-/* Photographs "develop" as they reach the middle of the screen: JS sets --d
-   per card from its position (0 = past, 1 = present). */
-.reel__card .plate__img {
-  filter: sepia(calc(1 - var(--d, 0))) saturate(calc(.35 + .75 * var(--d, 0))) contrast(calc(1.08 - .08 * var(--d, 0)));
-}
-.reel__card .plate { transform: scale(calc(.94 + .06 * var(--d, 0))); transition: transform .5s var(--ease); }
-.reel__label { margin: .7rem 0 0; font-size: .76rem; color: var(--ink-45); }
-.reel__source { margin: 0 var(--gut); }
-
 .facts {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
@@ -1660,7 +1553,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .facts__item p { font-size: .92rem; color: var(--ink-70); }
 .facts__item { transition-delay: calc(var(--i, 0) * .1s); }
 
-/* ===================== 17 CHAPTER 08 — THE FUTURE ===================== */
+/* ===================== 17 CHAPTER 07 — THE FUTURE ===================== */
 .future { height: 340vh; position: relative; }
 .future__pin {
   position: sticky;
@@ -1671,20 +1564,47 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   place-items: center;
   padding: var(--gut);
 }
-.future__media {
+/* The village outline draws itself while rings grow out of it. */
+.future__mark {
   position: absolute;
-  inset: clamp(1rem, 4vw, 3.5rem);
-  /* The frame opens outward as everything else falls away. */
-  clip-path: inset(calc(22% * (1 - var(--p))) calc(16% * (1 - var(--p))));
+  left: 50%; top: 50%;
+  width: min(70vmin, 40rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%) rotate(calc(-8deg + 8deg * var(--p)));
+  z-index: 1;
 }
-.future__media .plate__img { position: absolute; inset: 0; transform: scale(calc(1.1 - .1 * var(--p))); }
+.future__shape { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.future__shape path {
+  fill: var(--mint);
+  fill-opacity: calc(var(--p) * .9);
+  stroke: var(--green);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+  stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - min(var(--p) * 1.6, 1));
+}
+.ring {
+  position: absolute;
+  left: 50%; top: 50%;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1px solid var(--peach);
+  transform: translate(-50%, -50%) scale(calc(var(--s) * (.4 + 1.2 * var(--p))));
+  opacity: calc(.7 - .5 * var(--p));
+}
+.ring--1 { --s: .7; }
+.ring--2 { --s: 1; border-color: var(--line); }
+.ring--3 { --s: 1.35; border-style: dashed; }
+.ring--4 { --s: 1.8; border-color: var(--line); }
 
 .future__veil {
   position: absolute;
   inset: 0;
   z-index: 3;
   background: var(--white);
-  opacity: calc(.72 - .42 * var(--p));
+  opacity: calc(.15 + .35 * var(--p));
 }
 
 .future__orbit { position: absolute; inset: 0; z-index: 4; }
@@ -1863,6 +1783,28 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 }
 .credits__statement { font-size: .92rem; color: var(--ink-70); max-width: 46ch; }
 
+.credits__social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .7rem;
+  margin: .4rem 0 1.8rem;
+}
+.credits__social a {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .55rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: .8rem;
+  color: var(--ink-70);
+  text-decoration: none;
+  transition: border-color .3s var(--ease), color .3s var(--ease), background .3s var(--ease);
+}
+.credits__social a:hover { border-color: var(--green); color: var(--deep); background: var(--mint); }
+.credits__icon { width: 1.05rem; height: 1.05rem; flex: none; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+
 .credits__roll {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(12rem, auto));
@@ -1931,68 +1873,59 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 /* =========================== 21 RESPONSIVE ===========================
    Mobile is not the desktop layout shrunk: pinned two-column scenes become
-   single-column sequences, parallax is dropped, and the dramatic reveals
-   (masks, wipes, staged uncovering) are kept. */
+   single-column sequences, parallax is dropped, scroll runways are
+   shortened (mobile scrolling is slower per pixel and every extra
+   viewport-height of pinned scroll is a real cost), and touch targets
+   grow to a comfortable size. The dramatic reveals that remain (masks,
+   wipes, staged reads) are kept — they're cheap (transform/opacity only)
+   and are what makes this feel like an archive rather than a form. */
 @media (max-width: 1080px) {
   .land { grid-template-columns: 1fr; }
-  .land__stage { height: 62svh; top: 4.5rem; margin-bottom: 1.5rem; }
+  .land__stage { height: 58svh; top: 4.5rem; margin-bottom: 1.5rem; }
   .land__frame { height: 100%; }
   .land__steps { padding: 2rem 0 6svh; }
-  .land__step { min-height: 62svh; }
+  .land__step { min-height: 58svh; }
 
   .decade__content { grid-template-columns: minmax(0, 15rem) minmax(0, 1fr); }
 }
 
 @media (max-width: 860px) {
   .nav__links { display: none; }
-  .nav__toggle { display: inline-flex; }
+  .nav__toggle { display: inline-flex; padding: .5rem 0; }
   .nav__wordmark { font-size: .92rem; }
 
   .indicator { left: auto; right: var(--gut); text-align: right; }
 
-  .hero { height: 260vh; }
+  .hero { height: 200vh; }
   .hero__meta { grid-template-columns: repeat(2, 1fr); }
   .hero__sub { top: calc(50% + 5.5rem); }
 
-  .uncover { height: 340vh; }
-  .uncover__pin { grid-template-columns: 1fr; grid-template-rows: auto auto; align-content: center; gap: 1.2rem; }
-  .uncover__readout { text-align: left; display: flex; align-items: baseline; gap: 1rem; flex-wrap: wrap; }
-  .uncover__label { margin-bottom: 0; }
-  .uncover__stages { display: flex; gap: .8rem; }
-
-  .story { grid-template-columns: 1fr; }
-  .story__plate { order: -1; }
+  .story { grid-template-columns: 1fr; padding-top: 0; }
 
   .timeline__body { padding-left: 1.6rem; }
   .decade__content { grid-template-columns: 1fr; }
-  .decade__media { max-width: 18rem; }
+  .decade__art { max-width: 16rem; }
 
-  .portrait { height: 260vh; }
-  .portrait__pin { grid-template-columns: 1fr; grid-template-rows: 1fr auto; align-content: center; gap: 1.2rem; }
-  .portrait--flip .portrait__frame { order: 0; }
-  .portrait__frame { height: 46svh; }
-  .portrait__story p { font-size: .98rem; }
-  .portrait__name { font-size: clamp(1.8rem, 9vw, 3rem); }
+  .census__figures { gap: 1.4rem 2.2rem; }
+  .people__note { padding-bottom: calc(var(--stack) * .5); }
 
-  .place { height: 240vh; }
+  .place { height: 190vh; }
+  .place__pin { padding-top: 6.5rem; }
+  .place__zoom { inset: 16% 8% 44% 8%; }
 
-  .compare { height: 300vh; }
-  .compare__frame { height: 52svh; }
-
-  .memories { grid-template-columns: 1fr; }
+  .memories { grid-template-columns: 1fr; gap: 2.6rem; padding-top: calc(var(--stack) * .6); }
   .fragment,
-  .fragment--photo, .fragment--quote, .fragment--note, .fragment--note-b,
-  .fragment--a, .fragment--b, .fragment--c, .audio {
+  .fragment--quote, .fragment--note, .fragment--note-b,
+  .fragment--a, .fragment--b, .fragment--c {
     grid-column: 1 / -1;
     transform: none;      /* parallax off on touch screens */
   }
   .fragment--note { transform: rotate(-2deg); }
   .fragment--note-b { transform: rotate(1.5deg); }
-  .fragment--photo { max-width: 20rem; }
 
   .young { grid-template-columns: 1fr; }
-  .reel { height: 300vh; }
-  .reel__card { width: 70vw; }
+  .dots, .dots--grid { grid-template-columns: repeat(10, 1fr); }
+  .dots--grid { max-width: 20rem; }
 
   .archive { grid-template-columns: 1fr; }
   .index__list { grid-template-columns: 1fr; }
@@ -2000,19 +1933,26 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
   .name { height: 220vh; }
   .name__def { font-size: .7rem; max-width: 44vw; }
+
+  /* Comfortable tap targets throughout. */
+  .nav__logo, .menu__link, .timeline__chip, .button, .credits__social a,
+  .credits__top, .index__link, .source > summary {
+    min-height: 2.5rem;
+  }
+  .timeline__chip { padding: .5rem 1rem; }
 }
 
 @media (max-width: 520px) {
   .hero__meta { grid-template-columns: 1fr; gap: .6rem; }
   .hero__meta-item { display: flex; gap: .6rem; align-items: baseline; }
   .hero__meta-item dt { margin: 0; min-width: 6.5rem; }
-  .compare__hit { width: 2.4rem; height: 2.4rem; }
   .source--up[open] > .source__body { max-width: 88vw; }
+  .credits__social { gap: .55rem; }
+  .credits__social a { padding: .5rem .85rem; font-size: .76rem; }
 }
 
-/* Touch devices: no hover zoom, no custom cursor. */
+/* Touch devices: no custom cursor. */
 @media (hover: none) {
-  .plate:not(.is-empty):hover .plate__img { transform: none; }
   .cursor { display: none; }
 }
 
@@ -2031,7 +1971,8 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hero { height: auto; }
   .hero__pin { position: relative; height: auto; min-height: 100svh; }
   .hero__intro { width: 74%; height: 58%; border-radius: 2px; }
-  .hero__img { transform: none; filter: none; }
+  .scape, .scape__sun, .scape__ridge { transform: none !important; }
+  .scape__contours path { stroke-dashoffset: 0; }
   .hero__media::after { opacity: 0; }
   .hero__line--a, .hero__line--b { transform: none; }
   .hero__rule { transform: scaleX(1); }
@@ -2048,45 +1989,29 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .name__split { width: 1.5rem; }
   .name__split::after, .name__def, .name__sotho, .name__mm, .name__end { opacity: 1; transform: none; }
 
-  .uncover { height: auto; }
-  .uncover__pin { position: relative; height: auto; padding-top: var(--stack); padding-bottom: var(--stack); }
-  .uncover__reveal { clip-path: none; }
-
-  .portrait { height: auto; }
-  .portrait__pin { position: relative; height: auto; padding-top: var(--stack); padding-bottom: var(--stack); }
-  .portrait__frame { clip-path: none; height: min(70svh, 34rem); }
-  .portrait__inner .plate__img { transform: none; }
-  .subtitle, .reveal-fade { opacity: 1; transform: none; }
-  .reveal-rise span { transform: none; }
-  .reveal-wipe { clip-path: none; }
+  .reveal-fade { opacity: 1; transform: none; }
 
   .place { height: auto; }
-  .place__pin { position: relative; height: auto; min-height: 80svh; }
-  .place__zoom { transform: none; }
+  .place__pin { position: relative; height: auto; min-height: 70svh; }
+  .place__zoom, .place__ghost { transform: none; }
+  .sketch path, .sketch circle { stroke-dashoffset: 0; }
+  .ticker__row, .ticker__row--b { transform: none; }
+  .years__num { background-position: 0 0; }
+  .dots i { transform: none; }
   .place__name { opacity: 1; transform: none; }
-
-  .compare { height: auto; }
-  .compare__pin { position: relative; height: auto; padding-top: var(--stack); padding-bottom: var(--stack); }
-  .compare__img--then, .compare__img--now { transform: none; }
 
   .fragment { transform: none !important; }
 
-  .reel { height: auto; }
-  .reel__pin { position: relative; height: auto; padding-top: var(--stack); padding-bottom: var(--stack); }
-  .reel__track { transform: none; overflow-x: auto; padding-bottom: 1rem; scroll-snap-type: x mandatory; }
-  .reel__card { scroll-snap-align: center; }
-  .reel__card .plate { transform: none; }
-  .reel__card .plate__img { filter: none; }
-
   .future { height: auto; }
   .future__pin { position: relative; height: auto; min-height: 90svh; }
-  .future__media { clip-path: none; }
-  .future__media .plate__img { transform: none; }
-  .future__veil { opacity: .3; }
+  .future__mark { transform: translate(-50%, -50%); }
+  .future__shape path { stroke-dashoffset: 0; fill-opacity: .9; }
+  .ring { transform: translate(-50%, -50%) scale(var(--s)); }
+  .future__veil { opacity: .4; }
   .future__orbit { display: none; }
   .future__line .word { opacity: 1; transform: none; filter: none; }
 
-  [data-reveal], .opener__num, .opener__lead, .decade__year, .decade__media,
+  [data-reveal], .opener__num, .opener__lead, .decade__year, .decade__art,
   .archive__title .word, .credits__name .char, .hero__word .char, .opener__title .char {
     opacity: 1 !important;
     transform: none !important;

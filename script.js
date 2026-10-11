@@ -34,14 +34,12 @@
     document.body.classList.add('is-loading');
 
     splitText();
-    checkImages();
+    buildDots();
     initLoader();
     initNav();
     initMenu();
     initObservers();
     initCounters();
-    initCompare();
-    initAudio();
     initCursor();
     initScroll();
   });
@@ -82,33 +80,29 @@
   }
 
   /* ---------------------------------------------------------------------
-     IMAGE SLOTS
-     Photographs have not been supplied yet. Any image that fails to load
-     marks its plate .is-empty, which swaps in the "Photograph wanted" card
-     describing the picture the archive is looking for. Drop a real file in
-     /images with the same name and the photograph simply appears.
+     DOT CHARTS
+     Builds the census dot fields from data-dots (how many) and data-fill
+     (how many of them are highlighted). Pure decoration: each chart sits
+     beside a sentence that says the same thing in words.
      --------------------------------------------------------------------- */
-  function checkImages() {
-    var imgs = document.querySelectorAll('.plate__img');
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      var plate = img.closest('.plate') || img.parentElement;
-
-      var fail = function () { if (plate) plate.classList.add('is-empty'); };
-      var pass = function () { if (plate) plate.classList.remove('is-empty'); };
-
-      if (img.complete) {
-        if (img.naturalWidth === 0) fail(); else pass();
-      } else {
-        img.addEventListener('error', fail);
-        img.addEventListener('load', pass);
+  function buildDots() {
+    Array.prototype.forEach.call(document.querySelectorAll('.dots[data-dots]'), function (field) {
+      var total = parseInt(field.getAttribute('data-dots'), 10) || 0;
+      var fill = field.hasAttribute('data-fill') ? parseInt(field.getAttribute('data-fill'), 10) : total;
+      var frag = document.createDocumentFragment();
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('i');
+        dot.style.setProperty('--i', i);
+        if (i < fill) dot.className = 'is-fill';
+        frag.appendChild(dot);
       }
+      field.appendChild(frag);
     });
   }
 
   /* ---------------------------------------------------------------------
      LOADER
-     The line tracks real loading where possible, then always finishes.
+     The line eases forward while fonts load, then always finishes.
      --------------------------------------------------------------------- */
   function initLoader() {
     var loader = document.getElementById('loader');
@@ -121,20 +115,9 @@
     var done = false;
     var settled = false;
 
-    var imgs = document.querySelectorAll('img');
-    var total = imgs.length || 1;
-    var seen = 0;
-
-    var tick = function () {
-      seen++;
-      target = 12 + Math.round((seen / total) * 76);
-    };
-
-    Array.prototype.forEach.call(imgs, function (img) {
-      if (img.complete) { tick(); return; }
-      img.addEventListener('load', tick, { once: true });
-      img.addEventListener('error', tick, { once: true });
-    });
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () { target = 88; });
+    }
 
     window.addEventListener('load', function () { settled = true; });
     /* Never let a slow asset hold the story hostage. */
@@ -224,7 +207,7 @@
      --------------------------------------------------------------------- */
   function initObservers() {
     var targets = document.querySelectorAll(
-      '[data-reveal], .opener, .decade, .archive__title, .credits__name, .facts__item'
+      '[data-reveal], .opener, .decade, .archive__title, .credits__name, .facts__item, .dots'
     );
 
     Array.prototype.forEach.call(document.querySelectorAll('.facts__item'), function (el, i) {
@@ -302,78 +285,6 @@
   }
 
   /* ---------------------------------------------------------------------
-     THEN & NOW
-     Scroll drives the divider, but as soon as someone takes hold of the
-     handle, their input wins until they leave the section.
-     --------------------------------------------------------------------- */
-  var COMPARE = null;
-
-  function initCompare() {
-    var frame = document.querySelector('.compare__frame');
-    var range = document.getElementById('compare-range');
-    if (!frame || !range) return;
-
-    COMPARE = { frame: frame, range: range, manual: false };
-
-    var apply = function (value) {
-      frame.style.setProperty('--c', value);
-    };
-    apply(range.value);
-
-    range.addEventListener('input', function () {
-      COMPARE.manual = true;
-      apply(range.value);
-    });
-    range.addEventListener('keydown', function () { COMPARE.manual = true; });
-
-    COMPARE.set = function (value) {
-      if (COMPARE.manual) return;
-      range.value = Math.round(value);
-      apply(value);
-    };
-    COMPARE.release = function () { COMPARE.manual = false; };
-  }
-
-  /* ---------------------------------------------------------------------
-     MEMORY RECORDINGS
-     No audio files exist yet. Put a path in data-audio and the player turns
-     itself on: nothing here pretends to play something that isn't there.
-     --------------------------------------------------------------------- */
-  function initAudio() {
-    var blocks = document.querySelectorAll('.audio[data-audio]');
-
-    Array.prototype.forEach.call(blocks, function (block) {
-      var src = block.getAttribute('data-audio');
-      var btn = block.querySelector('.audio__btn');
-      var status = block.querySelector('.audio__status');
-      if (!src || !btn) return;
-
-      var audio = new Audio(src);
-      block.classList.add('is-ready');
-      btn.disabled = false;
-      btn.setAttribute('aria-label', 'Play recording');
-      if (status) status.textContent = 'Recorded memory';
-
-      btn.addEventListener('click', function () {
-        if (audio.paused) {
-          audio.play();
-          block.classList.add('is-playing');
-          btn.setAttribute('aria-label', 'Pause recording');
-        } else {
-          audio.pause();
-          block.classList.remove('is-playing');
-          btn.setAttribute('aria-label', 'Play recording');
-        }
-      });
-
-      audio.addEventListener('ended', function () {
-        block.classList.remove('is-playing');
-        btn.setAttribute('aria-label', 'Play recording');
-      });
-    });
-  }
-
-  /* ---------------------------------------------------------------------
      CURSOR (desktop only)
      --------------------------------------------------------------------- */
   function initCursor() {
@@ -419,6 +330,9 @@
       scenes.push({
         el: el,
         kind: el.getAttribute('data-scene'),
+        /* Short scenes (shorter than the screen) can't pin, so their
+           progress runs from entering the bottom to leaving the top. */
+        pass: /^(opener|ticker)$/.test(el.getAttribute('data-scene')),
         top: 0,
         height: 0,
         setup: false
@@ -436,7 +350,7 @@
     window.addEventListener('resize', function () { measure(); update(); }, { passive: true });
     window.addEventListener('orientationchange', function () { setTimeout(function () { measure(); update(); }, 220); });
 
-    /* Late-loading fonts and images change offsets. */
+    /* Late-loading fonts change offsets. */
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(function () { measure(); update(); });
     }
@@ -485,8 +399,9 @@
     scenes.forEach(function (scene) {
       /* How far through this scene's scroll runway we are. A pinned scene
          is "running" while its own height passes the viewport. */
-      var travel = Math.max(scene.height - vh, 1);
-      var p = clamp((y - scene.top) / travel, 0, 1);
+      var p = scene.pass
+        ? clamp((y + vh - scene.top) / (scene.height + vh), 0, 1)
+        : clamp((y - scene.top) / Math.max(scene.height - vh, 1), 0, 1);
 
       var near = y + vh > scene.top - vh && y < scene.top + scene.height + vh;
       if (!near) return;
@@ -558,12 +473,8 @@
   function setupScene(scene) {
     switch (scene.kind) {
       case 'land': setupLand(scene); break;
-      case 'uncover': setupUncover(scene); break;
-      case 'portrait': setupPortrait(scene); break;
       case 'place': setupPlace(scene); break;
-      case 'compare': setupCompare(scene); break;
       case 'memories': setupMemories(scene); break;
-      case 'reel': setupReel(scene); break;
       case 'future': setupFuture(scene); break;
       default: break;
     }
@@ -622,43 +533,7 @@
     };
   }
 
-  /* --- CHAPTER 02: the staged uncovering ------------------------------ */
-  function setupUncover(scene) {
-    var reveal = scene.el.querySelector('.uncover__reveal');
-    var pct = scene.el.querySelector('.uncover__pct');
-    var stages = scene.el.querySelectorAll('.uncover__stages li');
-    var steps = [0.2, 0.5, 0.8, 1];
-    var last = -1;
-
-    scene.run = function (p) {
-      /* Four deliberate stops rather than a continuous slide. */
-      var index = p < 0.22 ? 0 : p < 0.46 ? 1 : p < 0.7 ? 2 : 3;
-      if (index === last) return;
-      last = index;
-
-      var value = steps[index];
-      if (reveal) reveal.style.setProperty('--u', value);
-      if (pct) pct.textContent = Math.round(value * 100);
-
-      Array.prototype.forEach.call(stages, function (li, i) {
-        li.classList.toggle('is-done', i <= index);
-      });
-    };
-  }
-
-  /* --- CHAPTER 03: portrait lines appearing in turn ------------------- */
-  function setupPortrait(scene) {
-    var timed = scene.el.querySelectorAll('[data-at]');
-
-    scene.run = function (p) {
-      Array.prototype.forEach.call(timed, function (el) {
-        var at = parseFloat(el.getAttribute('data-at'));
-        el.classList.toggle('is-on', p >= at);
-      });
-    };
-  }
-
-  /* --- CHAPTER 04: camera push toward a detail ------------------------ */
+  /* --- CHAPTER 04: camera push toward a drawing ------------------------ */
   function setupPlace(scene) {
     var zoom = scene.el.querySelector('.place__zoom');
     var focus = scene.el.getAttribute('data-focus');
@@ -676,18 +551,7 @@
     };
   }
 
-  /* --- CHAPTER 05: scroll drives the divider unless a hand is on it --- */
-  function setupCompare(scene) {
-    scene.run = function (p) {
-      if (!COMPARE) return;
-      if (p <= 0.01 || p >= 0.99) COMPARE.release();
-      /* Starts almost entirely "then", ends on "now". */
-      var value = 92 - clamp((p - 0.12) / 0.62, 0, 1) * 92;
-      COMPARE.set(value);
-    };
-  }
-
-  /* --- CHAPTER 06: gentle parallax between fragments ------------------ */
+  /* --- CHAPTER 05: gentle parallax between fragments ------------------ */
   function setupMemories(scene) {
     var items = scene.el.querySelectorAll('[data-speed]');
 
@@ -701,43 +565,7 @@
     };
   }
 
-  /* --- CHAPTER 07: horizontal reel, photographs developing ------------ */
-  function setupReel(scene) {
-    var track = scene.el.querySelector('.reel__track');
-    var cards = scene.el.querySelectorAll('.reel__card');
-    var yearOut = scene.el.querySelector('.reel__year-num');
-    var distance = 0;
-
-    scene.remeasure = function () {
-      if (!track) return;
-      /* How far the track must travel for its last card to reach the edge. */
-      distance = Math.max(track.scrollWidth - window.innerWidth + 48, 0);
-    };
-    scene.remeasure();
-
-    scene.run = function (p) {
-      if (!track) return;
-      if (REDUCED.matches) { track.style.setProperty('--rx', '0px'); return; }
-
-      track.style.setProperty('--rx', (distance * p).toFixed(1) + 'px');
-
-      /* Year counter runs from the archive's earliest decade to now. */
-      if (yearOut) {
-        var year = Math.round(lerp(1960, 2026, p));
-        if (yearOut.textContent !== String(year)) yearOut.textContent = year;
-      }
-
-      /* Each photograph develops as it crosses the middle of the screen. */
-      Array.prototype.forEach.call(cards, function (card) {
-        var rect = card.getBoundingClientRect();
-        var centre = rect.left + rect.width / 2;
-        var d = clamp(1 - Math.abs(centre - window.innerWidth * 0.42) / (window.innerWidth * 0.7), 0, 1);
-        card.style.setProperty('--d', d.toFixed(3));
-      });
-    };
-  }
-
-  /* --- CHAPTER 08: the closing statement ------------------------------ */
+  /* --- CHAPTER 07: the closing statement ------------------------------ */
   function setupFuture(scene) {
     var lines = scene.el.querySelectorAll('.future__line');
 
